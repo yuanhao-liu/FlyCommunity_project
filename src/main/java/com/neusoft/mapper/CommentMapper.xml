@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.neusoft.domain.Comment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+    <result column="like_num" property="likeNum" jdbcType="INTEGER" />
+    <result column="is_choose" property="isChoose" jdbcType="INTEGER" />
+    <result column="comment_time" property="commentTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, topic_id, comment_content, like_num, is_choose, comment_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tab_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tab_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.domain.Comment" >
+    insert into tab_comment (id, user_id, topic_id, 
+      comment_content, like_num, is_choose, 
+      comment_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{topicId,jdbcType=INTEGER}, 
+      #{commentContent,jdbcType=VARCHAR}, #{likeNum,jdbcType=INTEGER}, #{isChoose,jdbcType=INTEGER}, 
+      #{commentTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.domain.Comment" >
+    insert into tab_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="topicId != null" >
+        topic_id,
+      </if>
+      <if test="commentContent != null" >
+        comment_content,
+      </if>
+      <if test="likeNum != null" >
+        like_num,
+      </if>
+      <if test="isChoose != null" >
+        is_choose,
+      </if>
+      <if test="commentTime != null" >
+        comment_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="topicId != null" >
+        #{topicId,jdbcType=INTEGER},
+      </if>
+      <if test="commentContent != null" >
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="likeNum != null" >
+        #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="isChoose != null" >
+        #{isChoose,jdbcType=INTEGER},
+      </if>
+      <if test="commentTime != null" >
+        #{commentTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.domain.Comment" >
+    update tab_comment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="topicId != null" >
+        topic_id = #{topicId,jdbcType=INTEGER},
+      </if>
+      <if test="commentContent != null" >
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="likeNum != null" >
+        like_num = #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="isChoose != null" >
+        is_choose = #{isChoose,jdbcType=INTEGER},
+      </if>
+      <if test="commentTime != null" >
+        comment_time = #{commentTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.domain.Comment" >
+    update tab_comment
+    set user_id = #{userId,jdbcType=INTEGER},
+      topic_id = #{topicId,jdbcType=INTEGER},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      like_num = #{likeNum,jdbcType=INTEGER},
+      is_choose = #{isChoose,jdbcType=INTEGER},
+      comment_time = #{commentTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

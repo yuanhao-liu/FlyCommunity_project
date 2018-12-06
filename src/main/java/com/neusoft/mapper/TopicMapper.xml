@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.mapper.TopicMapper" >
+  <resultMap id="BaseResultMap" type="com.neusoft.domain.Topic" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="view_times" property="viewTimes" jdbcType="INTEGER" />
+    <result column="kiss_num" property="kissNum" jdbcType="INTEGER" />
+    <result column="is_top" property="isTop" jdbcType="INTEGER" />
+    <result column="is_good" property="isGood" jdbcType="INTEGER" />
+    <result column="is_end" property="isEnd" jdbcType="INTEGER" />
+    <result column="comment_num" property="commentNum" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="topic_category_id" property="topicCategoryId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.neusoft.domain.Topic" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, is_delete, view_times, kiss_num, is_top, is_good, is_end, comment_num, 
+    create_time, userid, topic_category_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tab_topic
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tab_topic
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.domain.Topic" >
+    insert into tab_topic (id, title, is_delete, 
+      view_times, kiss_num, is_top, 
+      is_good, is_end, comment_num, 
+      create_time, userid, topic_category_id, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, 
+      #{viewTimes,jdbcType=INTEGER}, #{kissNum,jdbcType=INTEGER}, #{isTop,jdbcType=INTEGER}, 
+      #{isGood,jdbcType=INTEGER}, #{isEnd,jdbcType=INTEGER}, #{commentNum,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{userid,jdbcType=INTEGER}, #{topicCategoryId,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.domain.Topic" >
+    insert into tab_topic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="viewTimes != null" >
+        view_times,
+      </if>
+      <if test="kissNum != null" >
+        kiss_num,
+      </if>
+      <if test="isTop != null" >
+        is_top,
+      </if>
+      <if test="isGood != null" >
+        is_good,
+      </if>
+      <if test="isEnd != null" >
+        is_end,
+      </if>
+      <if test="commentNum != null" >
+        comment_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="topicCategoryId != null" >
+        topic_category_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="viewTimes != null" >
+        #{viewTimes,jdbcType=INTEGER},
+      </if>
+      <if test="kissNum != null" >
+        #{kissNum,jdbcType=INTEGER},
+      </if>
+      <if test="isTop != null" >
+        #{isTop,jdbcType=INTEGER},
+      </if>
+      <if test="isGood != null" >
+        #{isGood,jdbcType=INTEGER},
+      </if>
+      <if test="isEnd != null" >
+        #{isEnd,jdbcType=INTEGER},
+      </if>
+      <if test="commentNum != null" >
+        #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="topicCategoryId != null" >
+        #{topicCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.domain.Topic" >
+    update tab_topic
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="viewTimes != null" >
+        view_times = #{viewTimes,jdbcType=INTEGER},
+      </if>
+      <if test="kissNum != null" >
+        kiss_num = #{kissNum,jdbcType=INTEGER},
+      </if>
+      <if test="isTop != null" >
+        is_top = #{isTop,jdbcType=INTEGER},
+      </if>
+      <if test="isGood != null" >
+        is_good = #{isGood,jdbcType=INTEGER},
+      </if>
+      <if test="isEnd != null" >
+        is_end = #{isEnd,jdbcType=INTEGER},
+      </if>
+      <if test="commentNum != null" >
+        comment_num = #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="topicCategoryId != null" >
+        topic_category_id = #{topicCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.neusoft.domain.Topic" >
+    update tab_topic
+    set title = #{title,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      view_times = #{viewTimes,jdbcType=INTEGER},
+      kiss_num = #{kissNum,jdbcType=INTEGER},
+      is_top = #{isTop,jdbcType=INTEGER},
+      is_good = #{isGood,jdbcType=INTEGER},
+      is_end = #{isEnd,jdbcType=INTEGER},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      userid = #{userid,jdbcType=INTEGER},
+      topic_category_id = #{topicCategoryId,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.domain.Topic" >
+    update tab_topic
+    set title = #{title,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      view_times = #{viewTimes,jdbcType=INTEGER},
+      kiss_num = #{kissNum,jdbcType=INTEGER},
+      is_top = #{isTop,jdbcType=INTEGER},
+      is_good = #{isGood,jdbcType=INTEGER},
+      is_end = #{isEnd,jdbcType=INTEGER},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      userid = #{userid,jdbcType=INTEGER},
+      topic_category_id = #{topicCategoryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
