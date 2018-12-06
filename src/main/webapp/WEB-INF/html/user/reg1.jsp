@@ -21,6 +21,10 @@
             //var inputEmail=$("#L_email").val();
             // var newEmail=encodeURIComponent(inputEmail);
             var a=$("#form1").serialize();
+            if($("#L_email").val().length==0){
+                $("#span_return_checkEmail").text("输入邮箱为空，请重新输入");
+                return
+            }
             $.post({
                 url:"${pageContext.request.contextPath}/checkEmail",
                 data:a,
