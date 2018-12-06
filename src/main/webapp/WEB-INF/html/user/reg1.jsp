@@ -49,10 +49,17 @@
                 }
             })
         });
+        var result=0;
+        $(function () {
+            var firstNum=Math.floor(Math.random()*20)+1;
+            var SecondNum=Math.floor(Math.random()*20)+1;
+             result=firstNum+SecondNum;
+            $("#spanRenlei").text(firstNum+"+"+SecondNum+"=?");
+        });
 
         function checkRenlei() {
             var L_vercode=$("#L_vercode").val();
-            if(L_vercode!=2){
+            if(L_vercode!=result){
                 $("#L_vercode").val("");
                 alert("答案错误")
             }
@@ -145,7 +152,7 @@
                                     <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input" onblur="checkRenlei()">
                                 </div>
                                 <div class="layui-form-mid">
-                                    <span style="color: #c00;" >1+1=?</span>
+                                    <span style="color: #c00;" id="spanRenlei"></span>
                                 </div>
                             </div>
                             <div class="layui-form-item">
