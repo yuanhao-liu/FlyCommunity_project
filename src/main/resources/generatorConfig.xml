@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>  
+<!-- ���ݿ�����-->  
+    <classPathEntry  location="E:\MavenRepository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
+    <context id="DB2Tables"  targetRuntime="MyBatis3">  
+        <commentGenerator>  
+            <property name="suppressDate" value="true"/>  
+            <!-- �Ƿ�ȥ���Զ����ɵ�ע�� true���� �� false:�� -->  
+            <property name="suppressAllComments" value="true"/>  
+        </commentGenerator>  
+        <!--���ݿ�����URL���û��������� -->  
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1/mybatis" userId="root" password="root">
+        </jdbcConnection>  
+        <javaTypeResolver>  
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>  
+        <!-- ����ģ�͵İ�����λ��-->  
+        <javaModelGenerator targetPackage="FlyCommunity.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>  
+            <property name="trimStrings" value="true"/>  
+        </javaModelGenerator>  
+        <!-- ����ӳ���ļ��İ�����λ��-->  
+        <sqlMapGenerator targetPackage="FlyCommunity.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>  
+        </sqlMapGenerator>  
+        <!-- ����DAO�İ�����λ��-->  
+        <javaClientGenerator type="XMLMAPPER" targetPackage="FlyCommunity.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>  
+        </javaClientGenerator>  
+        <!-- Ҫ���ɵı� tableName�����ݿ��еı�������ͼ�� domainObjectName��ʵ������-->  
+        <table tableName="User_info" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    </context>  
+</generatorConfiguration>  
