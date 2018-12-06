@@ -1,6 +1,6 @@
 package FlyCommunity.controller;
 
-import FlyCommunity.domain.User;
+import FlyCommunity.domain.Tab_user;
 import FlyCommunity.service.InService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ public class FirstController {
     @Autowired
     InService inService;
     @RequestMapping("/reg")
-    public ModelAndView reg(User user, String repass, String vercode){
+    public ModelAndView reg(Tab_user user){
         ModelAndView modelAndView = new ModelAndView();
         int i = inService.reg(user);
         modelAndView.setViewName("/WEB-INF/html/user/reg1.jsp");
@@ -25,7 +25,7 @@ public class FirstController {
     }
     @RequestMapping("/checkEmail")
     public void checkEmail( String email, HttpServletResponse response) throws IOException {
-        User user = inService.checkEmail(email);
+        Tab_user user = inService.checkEmail(email);
         if(user==null){
             response.getWriter().print("{\"msg\":\"可以注册\"}");
         }else {

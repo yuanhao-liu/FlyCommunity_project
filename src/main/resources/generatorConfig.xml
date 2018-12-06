@@ -12,7 +12,7 @@
             <property name="suppressAllComments" value="true"/>  
         </commentGenerator>  
         <!--���ݿ�����URL���û��������� -->  
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1/mybatis" userId="root" password="root">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1/flybbs" userId="root" password="root">
         </jdbcConnection>  
         <javaTypeResolver>  
             <property name="forceBigDecimals" value="false"/>
@@ -31,6 +31,6 @@
             <property name="enableSubPackages" value="true"/>  
         </javaClientGenerator>  
         <!-- Ҫ���ɵı� tableName�����ݿ��еı�������ͼ�� domainObjectName��ʵ������-->  
-        <table tableName="User_info" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="tab_user" domainObjectName="Tab_user" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>  
 </generatorConfiguration>  

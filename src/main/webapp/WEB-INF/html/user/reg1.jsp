@@ -35,16 +35,20 @@
             var repass=$("#L_repass").val();
             var pass=$("#L_pass").val();
             if(pass != repass){
-                alert("俩次输入密码不一致")
+                $("#return_repass_result").text("俩次输入密码不一致");
                 $("#L_repass").val("");
                 $("#L_pass").val("");
             }
         }
-
+        $(function () {
+            $("#L_pass").focus(function () {
+                $("#return_repass_result").text("");
+            })
+        });
         $(function () {
             $("button[class=layui-btn]").click(function () {
                 if($("#span_return_checkEmail").text()=="该邮箱已被注册，请更换邮箱"){
-                    alert("邮箱已经被注册，请重新注册");
+                    $("#span_return_msg").text("邮箱已经被注册，请重新注册");
                     return false;
                 }
             })
@@ -61,10 +65,14 @@
             var L_vercode=$("#L_vercode").val();
             if(L_vercode!=result){
                 $("#L_vercode").val("");
-                alert("答案错误")
+                $("#return_renlei_result").text("答案错误");
             }
         }
-
+        $(function () {
+            $("#L_vercode").focus(function () {
+                $("#return_renlei_result").text("");
+            })
+        })
 
     </script>
 </head>
@@ -130,13 +138,13 @@
                             <div class="layui-form-item">
                                 <label for="L_username" class="layui-form-label">昵称</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="L_username" name="username" required lay-verify="required" autocomplete="off" class="layui-input">
+                                    <input type="text" id="L_username" name="nickname" required lay-verify="required" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label for="L_pass" class="layui-form-label">密码</label>
                                 <div class="layui-input-inline">
-                                    <input type="password" id="L_pass" name="pass" required lay-verify="required" autocomplete="off" class="layui-input">
+                                    <input type="password" id="L_pass" name="passwd" required lay-verify="required" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-form-mid layui-word-aux">6到16个字符</div>
                             </div>
@@ -144,12 +152,14 @@
                                 <label for="L_repass" class="layui-form-label">确认密码</label>
                                 <div class="layui-input-inline">
                                     <input type="password" id="L_repass" name="repass" required lay-verify="required" autocomplete="off" class="layui-input" onblur="checkRepass()">
+                                    <span id="return_repass_result"></span>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label for="L_vercode" class="layui-form-label">人类验证</label>
                                 <div class="layui-input-inline">
                                     <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input" onblur="checkRenlei()">
+                                    <span id="return_renlei_result"></span>
                                 </div>
                                 <div class="layui-form-mid">
                                     <span style="color: #c00;" id="spanRenlei"></span>

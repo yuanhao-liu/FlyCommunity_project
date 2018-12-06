@@ -1,9 +1,10 @@
 package FlyCommunity.service;
 
-import FlyCommunity.domain.User;
+import FlyCommunity.domain.Tab_user;
+
 
 public interface InService {
-    User checkEmail(String email);
+    Tab_user checkEmail(String email);
 
-    int reg(User user);
+    int reg(Tab_user user);
 }
