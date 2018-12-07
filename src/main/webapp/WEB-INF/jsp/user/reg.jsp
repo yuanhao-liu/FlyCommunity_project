@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/layui/css/layui.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/css/global.css">
     <script src="${pageContext.request.contextPath}/res/jquery-3.3.1.js"></script>
+    <script src="${pageContext.request.contextPath}/res/mods/util.js"></script>
     <script>
         function checkEmail() {
             var a=$("#form1").serialize();
@@ -49,30 +50,7 @@
             })
         });
 
-        var result=0;
-        $(function () {
-            var firstNum=Math.floor(Math.random()*20)+1;
-            var SecondNum=Math.floor(Math.random()*20)+1;
-            result=firstNum+SecondNum;
-            $("#spanRenlei").text(firstNum+"+"+SecondNum+"=?");
-        });
-        $(function () {
-            $("#L_vercode").blur(function () {
-                if($("#L_vercode").val() != result){
-                    $("#checkRenlei").text("答案错误");
-                }else {
-                    $("#checkRenlei").text("");
-                }
-            })
-        });
-        $(function () {
-            $("button[class=layui-btn]").click(function () {
-                if($("#checkRenlei").text() == "答案错误"){
-                    alert("答案错误,重新回答");
-                    return false;
-                }
-            })
-        })
+
 
 
     </script>
