@@ -2,21 +2,26 @@ package com.neusoft.controller;
 
 import com.neusoft.Utils.MD5Utils;
 import com.neusoft.domain.User;
+import com.neusoft.mapper.CommentMapper;
+import com.neusoft.mapper.TopicMapper;
 import com.neusoft.mapper.UserMapper;
 import com.neusoft.response.RegRespObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.UUID;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Administrator on 2018/12/6.
@@ -27,6 +32,10 @@ public class UserController {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    TopicMapper topicMapper;
+    @Autowired
+    CommentMapper commentMapper;
 
     @RequestMapping("reg")
     public String reg()
@@ -126,6 +135,8 @@ public class UserController {
             user.setId(userinfo.getId());
             int i = userMapper.updateByPrimaryKeySelective(user);
             if(i>0){
+                User user2 = userMapper.selectByPrimaryKey(user.getId());
+                session.setAttribute("userinfo",user2);
                 regRespObj.setStatus(0);
                 regRespObj.setAction("/user/set");
             }else {
@@ -159,5 +170,59 @@ public class UserController {
             regRespObj.setStatus(0);
         }
         return regRespObj;
+    }
+    @RequestMapping("repass")
+    @ResponseBody
+    public RegRespObj repass(String nowpass,String pass,HttpServletRequest request){
+        RegRespObj regRespObj = new RegRespObj();
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
+        String pwd = MD5Utils.getPwd(pass);
+        userinfo.setPasswd(pwd);
+        userMapper.updateByPrimaryKeySelective(userinfo);
+        regRespObj.setStatus(0);
+        regRespObj.setAction("/user/set");
+        return regRespObj;
+    }
+    @RequestMapping("checkNowpass/{id}")
+    @ResponseBody
+    public RegRespObj checkNowpass(@PathVariable Integer id,HttpServletRequest request){
+        RegRespObj regRespObj = new RegRespObj();
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
+        String pwd = MD5Utils.getPwd(id.toString());
+        if(pwd.equals(userinfo.getPasswd())){
+            regRespObj.setMsg("当前密码正确");
+        }else {
+            regRespObj.setMsg("当前密码不正确");
+        }
+        return regRespObj;
+    }
+    @RequestMapping("gohome")
+    public ModelAndView gohome(HttpServletRequest request) throws ParseException {
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
+        ModelAndView modelAndView = new ModelAndView();
+        List<Map<String, Object>> maps = topicMapper.selectByUserID(userinfo.getId());
+        for(Map<String, Object> m:maps){
+            long now = new Date().getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            long create_time = formatter.parse(m.get("create_time").toString()).getTime();
+            long hour= (now-create_time)/1000/60/60;
+            m.put("create_time",hour);
+        }
+        modelAndView.setViewName("/user/home");
+        modelAndView.addObject("list",maps);
+
+        List<Map<String, Object>> maps1 = commentMapper.selectByUseridAndTopicid(userinfo.getId());
+        for(Map<String, Object> m1:maps1){
+            long now1 = new Date().getTime();
+            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            long create_time1 = formatter1.parse(m1.get("comment_time").toString()).getTime();
+            long hour1= (now1-create_time1)/1000/60/60;
+            m1.put("comment_time",hour1);
+        }
+        modelAndView.addObject("list1",maps1);
+        return modelAndView;
     }
 }

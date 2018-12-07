@@ -18,7 +18,41 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/layui/css/layui.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/css/global.css">
     <script src="${pageContext.request.contextPath}/res/jquery-3.3.1.js"></script>
+    <script>
+        $(function () {
+            $("#L_repass").blur(function () {
+                var L_pass=$("#L_pass").val();
+                var L_repass=$("#L_repass").val();
+                if(L_pass == L_repass){
+                    $(".check_password").text("");
+                }else{
+                    $("#L_pass").val("");
+                    $("#L_repass").val("");
+                    $(".check_password").text("密码不一致");
+                }
+            })
+        });
 
+        $(function () {
+            $("#L_nowpass").blur(function () {
+                var nowpass=$("#L_nowpass").val();
+                $.get({
+                    url:"/user/checkNowpass/"+nowpass,
+                    dataType:"json",
+                    success:function (data) {
+                        $("#checkNowpass").text(data.msg);
+                        if( $("#checkNowpass").text()=="当前密码不正确"){
+                            $("button[class^=layui-btn]").addClass("layui-btn-disabled");
+                        }
+                        if($("#checkNowpass").text()=="当前密码正确"){
+                            $("button[class^=layui-btn]").removeClass("layui-btn-disabled");
+                        }
+                    }
+                })
+            })
+        });
+
+    </script>
 </head>
 <body>
 
@@ -27,7 +61,7 @@
 <div class="layui-container fly-marginTop fly-user-main">
     <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
         <li class="layui-nav-item">
-            <a href="home.html">
+            <a href="/user/gohome">
                 <i class="layui-icon">&#xe609;</i>
                 我的主页
             </a>
@@ -139,12 +173,14 @@
                             <label for="L_nowpass" class="layui-form-label">当前密码</label>
                             <div class="layui-input-inline">
                                 <input type="password" id="L_nowpass" name="nowpass" required lay-verify="required" autocomplete="off" class="layui-input">
+                                <span id="checkNowpass"></span>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="L_pass" class="layui-form-label">新密码</label>
                             <div class="layui-input-inline">
                                 <input type="password" id="L_pass" name="pass" required lay-verify="required" autocomplete="off" class="layui-input">
+                                <span class="check_password"></span>
                             </div>
                             <div class="layui-form-mid layui-word-aux">6到16个字符</div>
                         </div>
@@ -152,6 +188,7 @@
                             <label for="L_repass" class="layui-form-label">确认密码</label>
                             <div class="layui-input-inline">
                                 <input type="password" id="L_repass" name="repass" required lay-verify="required" autocomplete="off" class="layui-input">
+                                <span class="check_password"></span>
                             </div>
                         </div>
                         <div class="layui-form-item">

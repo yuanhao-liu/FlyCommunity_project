@@ -2,6 +2,9 @@ package com.neusoft.mapper;
 
 import com.neusoft.domain.Comment;
 
+import java.util.List;
+import java.util.Map;
+
 public interface CommentMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +17,6 @@ public interface CommentMapper {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    List<Map<String,Object>> selectByUseridAndTopicid(int id);
 }

@@ -2,6 +2,9 @@ package com.neusoft.mapper;
 
 import com.neusoft.domain.Topic;
 
+import java.util.List;
+import java.util.Map;
+
 public interface TopicMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +19,6 @@ public interface TopicMapper {
     int updateByPrimaryKeyWithBLOBs(Topic record);
 
     int updateByPrimaryKey(Topic record);
+
+    List<Map<String,Object>> selectByUserID(int id);
 }

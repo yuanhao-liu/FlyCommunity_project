@@ -207,4 +207,10 @@
       topic_category_id = #{topicCategoryId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByUserID" parameterType="int" resultType="map">
+    select tab_topic.* from tab_topic
+    join tab_user on tab_topic.userid = tab_user.id
+    where tab_user.id=#{value}
+  </select>
 </mapper>
