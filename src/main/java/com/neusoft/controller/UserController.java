@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.UUID;
+
 /**
  * Created by Administrator on 2018/12/6.
  */
@@ -113,12 +115,49 @@ public class UserController {
     {
         return "user/set";
     }
+    @RequestMapping("doSetting")
+    @ResponseBody
+    public RegRespObj doSetting(User user,HttpServletRequest request){
+        RegRespObj regRespObj = new RegRespObj();
+        User user1 = userMapper.selectByEmail(user.getEmail());
+        if(user1==null){
+            HttpSession session = request.getSession();
+            User userinfo = (User)session.getAttribute("userinfo");
+            user.setId(userinfo.getId());
+            int i = userMapper.updateByPrimaryKeySelective(user);
+            if(i>0){
+                regRespObj.setStatus(0);
+                regRespObj.setAction("/user/set");
+            }else {
+                regRespObj.setStatus(1);
+                regRespObj.setMsg("数据库异常，联系管理员");
+            }
+        }else {
+            regRespObj.setStatus(1);
+            regRespObj.setMsg("修改失败，修改的邮箱已经被注册");
+        }
+        return regRespObj;
+    }
     @RequestMapping("upload")
-    public void upload(@RequestParam  MultipartFile file) throws IOException {
-        String filename = file.getOriginalFilename();
-        File file1 = new File("d:/head.jpg");
-        file.transferTo(file1);
-
-
+    @ResponseBody
+    public RegRespObj upload(@RequestParam  MultipartFile file,HttpServletRequest request) throws IOException {
+        RegRespObj regRespObj = new RegRespObj();
+        if(file.getSize()>0){
+            String realPath = request.getServletContext().getRealPath("/res/uploadImgs");
+            File file1 = new File(realPath);
+            if(!file1.exists()){
+                file1.mkdirs();
+            }
+            UUID uuid = UUID.randomUUID();
+            File file2 = new File(realPath+File.separator+uuid+file.getOriginalFilename());
+            file.transferTo(file2);
+            HttpSession session = request.getSession();
+            User userinfo = (User)session.getAttribute("userinfo");
+            userinfo.setPicPath(uuid+file.getOriginalFilename());
+            userMapper.updateByPrimaryKeySelective(userinfo);
+            session.setAttribute("userinfo",userinfo);
+            regRespObj.setStatus(0);
+        }
+        return regRespObj;
     }
 }

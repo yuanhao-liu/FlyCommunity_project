@@ -46,7 +46,14 @@
                     <cite class="layui-hide-xs">${userinfo.nickname}</cite>
                     <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
                     <i class="layui-badge fly-badge-vip layui-hide-xs">VIP${userinfo.vipGrade}</i>
-                        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+                        <c:choose>
+                            <c:when test="${userinfo.picPath ==''}">
+                                <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${pageContext.request.contextPath}/res/uploadImgs/${userinfo.picPath}">
+                            </c:otherwise>
+                        </c:choose>
                     </a>
                     <dl class="layui-nav-child">
                     <dd><a href="${pageContext.request.contextPath}/user/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
