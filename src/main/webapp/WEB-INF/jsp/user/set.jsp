@@ -67,13 +67,13 @@
             </a>
         </li>
         <li class="layui-nav-item">
-            <a href="index.html">
+            <a href="/user/goUserIndex">
                 <i class="layui-icon">&#xe612;</i>
                 用户中心
             </a>
         </li>
         <li class="layui-nav-item layui-this">
-            <a href="set.html">
+            <a href="/user/set">
                 <i class="layui-icon">&#xe620;</i>
                 基本设置
             </a>

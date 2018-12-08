@@ -2,6 +2,9 @@ package com.neusoft.mapper;
 
 import com.neusoft.domain.UserCollectTopic;
 
+import java.util.List;
+import java.util.Map;
+
 public interface UserCollectTopicMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +17,6 @@ public interface UserCollectTopicMapper {
     int updateByPrimaryKeySelective(UserCollectTopic record);
 
     int updateByPrimaryKey(UserCollectTopic record);
+
+    List<Map<String,Object>> selectByUseridAndTopicid(int id);
 }

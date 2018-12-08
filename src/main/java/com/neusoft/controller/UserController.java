@@ -4,6 +4,7 @@ import com.neusoft.Utils.MD5Utils;
 import com.neusoft.domain.User;
 import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
+import com.neusoft.mapper.UserCollectTopicMapper;
 import com.neusoft.mapper.UserMapper;
 import com.neusoft.response.RegRespObj;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,8 @@ public class UserController {
     TopicMapper topicMapper;
     @Autowired
     CommentMapper commentMapper;
-
+    @Autowired
+    UserCollectTopicMapper userCollectTopicMapper;
     @RequestMapping("reg")
     public String reg()
     {
@@ -224,5 +226,33 @@ public class UserController {
         }
         modelAndView.addObject("list1",maps1);
         return modelAndView;
+    }
+    @RequestMapping("goUserIndex")
+    public ModelAndView goUserIndex(HttpServletRequest request) throws ParseException {
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
+        List<Map<String, Object>> maps = topicMapper.selectByUserID(userinfo.getId());
+        int size = maps.size();
+        modelAndView.setViewName("/user/index");
+        modelAndView.addObject("list",maps);
+        modelAndView.addObject("size",size);
+
+        List<Map<String, Object>> maps1 = userCollectTopicMapper.selectByUseridAndTopicid(userinfo.getId());
+        int size1 = maps1.size();
+        for(Map<String, Object> m:maps1){
+            long now = new Date().getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            long create_time = formatter.parse(m.get("collect_time").toString()).getTime();
+            long hour= (now-create_time)/1000/60/60;
+            m.put("collect_time",hour);
+        }
+        modelAndView.addObject("list1",maps1);
+        modelAndView.addObject("size1",size1);
+        return modelAndView;
+    }
+    @RequestMapping("goMessage")
+    public String goMessage(){
+        return "/user/message";
     }
 }
