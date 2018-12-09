@@ -252,7 +252,20 @@ public class UserController {
         return modelAndView;
     }
     @RequestMapping("goMessage")
-    public String goMessage(){
-        return "/user/message";
+    public ModelAndView goMessage(HttpServletRequest request) throws ParseException {
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
+        List<Map<String, Object>> maps = commentMapper.selectForMessage(userinfo.getId());
+        for(Map<String, Object> m:maps){
+            long now = new Date().getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            long create_time = formatter.parse(m.get("comment_time").toString()).getTime();
+            long hour= (now-create_time)/1000/60/60;
+            m.put("comment_time",hour);
+        }
+        modelAndView.setViewName("/user/message");
+        modelAndView.addObject("list",maps);
+        return modelAndView;
     }
 }

@@ -86,44 +86,6 @@
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
-
-                    <%--<li>
-                        <span class="fly-jing">精</span>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>刚刚</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>2017-10-30</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>--%>
-
                 </ul>
             </div>
         </div>
@@ -150,31 +112,6 @@
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
-
-                    <%--<li>
-                        <p>
-                            <span>1分钟前</span>
-                            在<a href="" target="_blank">tips能同时渲染多个吗?</a>中回答：
-                        </p>
-                        <div class="home-dacontent">
-                            尝试给layer.photos加上这个属性试试：
-                            <pre>
-full: true         
-</pre>
-                            文档没有提及
-                        </div>
-                    </li>
-                    <li>
-                        <p>
-                            <span>5分钟前</span>
-                            在<a href="" target="_blank">在Fly社区用的是什么系统啊?</a>中回答：
-                        </p>
-                        <div class="home-dacontent">
-                            Fly社区采用的是NodeJS。分享出来的只是前端模版
-                        </div>
-                    </li>--%>
-
-
                 </ul>
             </div>
         </div>

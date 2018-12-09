@@ -19,4 +19,8 @@ public interface CommentMapper {
     int updateByPrimaryKey(Comment record);
 
     List<Map<String,Object>> selectByUseridAndTopicid(int id);
+
+    List<Map<String,Object>> selectForMessage(int id);
+
+    List<Map<String,Object>> selectForIndexHuitie();
 }

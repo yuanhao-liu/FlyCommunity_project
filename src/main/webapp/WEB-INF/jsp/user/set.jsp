@@ -79,7 +79,7 @@
             </a>
         </li>
         <li class="layui-nav-item">
-            <a href="message.html">
+            <a href="/user/goMessage">
                 <i class="layui-icon">&#xe611;</i>
                 我的消息
             </a>
