@@ -209,8 +209,8 @@
   </update>
 
   <select id="selectByUserID" parameterType="int" resultType="map">
-    select tab_topic.* from tab_topic
-    join tab_user on tab_topic.userid = tab_user.id
+    select *,tab_user.kiss_num as kn from tab_topic
+    right join tab_user on tab_topic.userid = tab_user.id
     where tab_user.id=#{value}
   </select>
 
@@ -219,5 +219,11 @@
     join tab_user on tab_user.id=tab_topic.userid
     join tab_topic_category on tab_topic_category.id=tab_topic.topic_category_id
     ORDER BY tab_topic.create_time DESC
+  </select>
+
+  <select id="selectForReyi" resultMap="ResultMapWithBLOBs">
+    select * from tab_topic
+    ORDER BY comment_num DESC
+    LIMIT 10
   </select>
 </mapper>

@@ -26,22 +26,22 @@
 
 <div class="fly-home fly-panel" style="background-image: url();">
     <c:choose>
-        <c:when test="${userinfo.picPath == ''}">
+        <c:when test="${list[0].pic_path==''}">
             <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
         </c:when>
         <c:otherwise>
-            <img src="${pageContext.request.contextPath}/res/uploadImgs/${userinfo.picPath}">
+            <img src="${pageContext.request.contextPath}/res/uploadImgs/${list[0].pic_path}">
         </c:otherwise>
     </c:choose>
 
     <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
     <h1>
-        ${userinfo.nickname}
+        ${list[0].nickname}
         <c:choose>
-            <c:when test="${userinfo.sex == 0}"><i class="iconfont icon-nan"></i></c:when>
+            <c:when test="${list[0].sex == 0}"><i class="iconfont icon-nan"></i></c:when>
             <c:otherwise><i class="iconfont icon-nv"></i></c:otherwise>
         </c:choose>
-        <i class="layui-badge fly-badge-vip">VIP${userinfo.vipGrade}</i>
+        <i class="layui-badge fly-badge-vip">VIP${list[0].vip_grade}</i>
         <!--
         <span style="color:#c00;">（管理员）</span>
         <span style="color:#5FB878;">（社区之光）</span>
@@ -52,12 +52,12 @@
     <p style="padding: 10px 0; color: #5FB878;">认证信息：layui 作者</p>
 
     <p class="fly-home-info">
-        <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">${userinfo.kissNum} 飞吻</span>
-        <i class="iconfont icon-shijian"></i><span><fmt:formatDate value="${userinfo.joinTime}" pattern="yyyy-MM-dd"/> 加入</span>
-        <i class="iconfont icon-chengshi"></i><span>来自${userinfo.city}</span>
+        <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">${list[0].kn} 飞吻</span>
+        <i class="iconfont icon-shijian"></i><span><fmt:formatDate value="${list[0].join_time}" pattern="yyyy-MM-dd"/> 加入</span>
+        <i class="iconfont icon-chengshi"></i><span>来自${list[0].city}</span>
     </p>
 
-    <p class="fly-home-sign">（${userinfo.sign}）</p>
+    <p class="fly-home-sign">（${list[0].sign}）</p>
 
     <div class="fly-sns" data-user="">
         <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">加为好友</a>
@@ -70,10 +70,13 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md6 fly-home-jie">
             <div class="fly-panel">
-                <h3 class="fly-panel-title">${userinfo.nickname} 最近的提问</h3>
+                <h3 class="fly-panel-title">${list[0].nickname} 最近的提问</h3>
                 <ul class="jie-row">
                     <c:choose>
                         <c:when test="${list.size()==0}">
+                             <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何求解</i></div>
+                        </c:when>
+                        <c:when test="${list[0].title == null}">
                              <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何求解</i></div>
                         </c:when>
                         <c:otherwise>
@@ -92,7 +95,7 @@
 
         <div class="layui-col-md6 fly-home-da">
             <div class="fly-panel">
-                <h3 class="fly-panel-title">${userinfo.nickname} 最近的回答</h3>
+                <h3 class="fly-panel-title">${list[0].nickname} 最近的回答</h3>
                 <ul class="home-jieda">
                     <c:choose>
                         <c:when test="${list1.size()==0}">

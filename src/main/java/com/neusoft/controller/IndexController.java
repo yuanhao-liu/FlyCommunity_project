@@ -1,5 +1,6 @@
 package com.neusoft.controller;
 
+import com.neusoft.domain.Topic;
 import com.neusoft.domain.User;
 import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
@@ -38,18 +39,23 @@ public class IndexController {
 
         List<Map<String, Object>> maps1 = commentMapper.selectForIndexHuitie();
         modelAndView.addObject("list1",maps1);
+
+        List<Topic> topics = topicMapper.selectForReyi();
+        modelAndView.addObject("list2",topics);
         return modelAndView;
     }
     @RequestMapping("goUserHome/{id}")
     public ModelAndView goUserHome(@PathVariable int id) throws ParseException {
         ModelAndView modelAndView = new ModelAndView();
         List<Map<String, Object>> maps = topicMapper.selectByUserID(id);
-        for(Map<String, Object> m:maps){
-            long now = new Date().getTime();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            long create_time = formatter.parse(m.get("create_time").toString()).getTime();
-            long hour= (now-create_time)/1000/60/60;
-            m.put("create_time",hour);
+        if(maps.get(0).get("create_time") !=null){
+            for(Map<String, Object> m:maps){
+                long now = new Date().getTime();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                long create_time = formatter.parse(m.get("create_time").toString()).getTime();
+                long hour= (now-create_time)/1000/60/60;
+                m.put("create_time",hour);
+            }
         }
         modelAndView.setViewName("/user/home");
         modelAndView.addObject("list",maps);

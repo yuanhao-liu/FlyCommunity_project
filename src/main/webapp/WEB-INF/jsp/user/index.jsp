@@ -78,12 +78,14 @@
                 <div class="layui-tab-item layui-show">
                     <ul class="mine-view jie-row">
                         <c:forEach items="${list}" var="map">
-                            <li>
-                                <a class="jie-title" href="../jie/detail.html" target="_blank">${map.title}</a>
-                                <i><fmt:formatDate value="${map.create_time}" pattern="yyyy-MM-dd HH:mm:ss"/></i>
-                                <a class="mine-edit" href="/jie/edit/8116">编辑</a>
-                                <em>${map.view_times}阅/${map.comment_num}答</em>
-                            </li>
+                            <c:if test="${size>0}">
+                                <li>
+                                    <a class="jie-title" href="../jie/detail.html" target="_blank">${map.title}</a>
+                                    <i><fmt:formatDate value="${map.create_time}" pattern="yyyy-MM-dd HH:mm:ss"/></i>
+                                    <a class="mine-edit" href="/jie/edit/8116">编辑</a>
+                                    <em>${map.view_times}阅/${map.comment_num}答</em>
+                                </li>
+                            </c:if>
                         </c:forEach>
                     </ul>
                     <div id="LAY_page"></div>

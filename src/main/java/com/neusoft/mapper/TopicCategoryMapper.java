@@ -14,4 +14,6 @@ public interface TopicCategoryMapper {
     int updateByPrimaryKeySelective(TopicCategory record);
 
     int updateByPrimaryKey(TopicCategory record);
+
+
 }

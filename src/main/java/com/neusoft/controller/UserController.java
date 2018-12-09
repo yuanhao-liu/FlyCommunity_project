@@ -206,12 +206,14 @@ public class UserController {
         User userinfo = (User)session.getAttribute("userinfo");
         ModelAndView modelAndView = new ModelAndView();
         List<Map<String, Object>> maps = topicMapper.selectByUserID(userinfo.getId());
-        for(Map<String, Object> m:maps){
-            long now = new Date().getTime();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            long create_time = formatter.parse(m.get("create_time").toString()).getTime();
-            long hour= (now-create_time)/1000/60/60;
-            m.put("create_time",hour);
+        if(maps.get(0).get("create_time")!=null){
+            for(Map<String, Object> m:maps){
+                long now = new Date().getTime();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                long create_time = formatter.parse(m.get("create_time").toString()).getTime();
+                long hour= (now-create_time)/1000/60/60;
+                m.put("create_time",hour);
+            }
         }
         modelAndView.setViewName("/user/home");
         modelAndView.addObject("list",maps);
@@ -234,6 +236,9 @@ public class UserController {
         User userinfo = (User)session.getAttribute("userinfo");
         List<Map<String, Object>> maps = topicMapper.selectByUserID(userinfo.getId());
         int size = maps.size();
+        if(maps.get(0).get("title")==null){
+            size=0;
+        }
         modelAndView.setViewName("/user/index");
         modelAndView.addObject("list",maps);
         modelAndView.addObject("size",size);

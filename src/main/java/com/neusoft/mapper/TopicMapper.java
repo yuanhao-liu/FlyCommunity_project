@@ -23,4 +23,6 @@ public interface TopicMapper {
     List<Map<String,Object>> selectByUserID(int id);
 
     List<Map<String,Object>> selectForIndex();
+
+    List<Topic> selectForReyi();
 }
