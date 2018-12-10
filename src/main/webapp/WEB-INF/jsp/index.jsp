@@ -63,7 +63,7 @@
                         <c:choose>
                             <c:when test="${map.is_top==1}">
                                 <li>
-                                    <a href="user/home.html" class="fly-avatar">
+                                    <a href="/goUserHome/${map.userid}" class="fly-avatar">
                                         <c:choose>
                                             <c:when test="${map.pic_path==''}">
                                                 <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
@@ -128,7 +128,7 @@
                     <c:forEach items="${list}" var="map1">
                         <c:if test="${map1.is_top==0}">
                             <li>
-                                <a href="user/home.html" class="fly-avatar">
+                                <a href="/goUserHome/${map1.userid}" class="fly-avatar">
                                     <c:choose>
                                         <c:when test="${map1.pic_path==''}">
                                             <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
