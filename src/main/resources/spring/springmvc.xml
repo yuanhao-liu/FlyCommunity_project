@@ -27,22 +27,22 @@
     <context:component-scan base-package="com.neusoft.controller"></context:component-scan>
 
 
-    <!--<mvc:interceptors>-->
+    <mvc:interceptors>
 
-        <!--&lt;!&ndash;如果配置了多个拦截器，则按顺序执行 &ndash;&gt;-->
+        <!--如果配置了多个拦截器，则按顺序执行 -->
 
-        <!--&lt;!&ndash; 登陆认证拦截器 &ndash;&gt;-->
+        <!-- 登陆认证拦截器 -->
 
-        <!--<mvc:interceptor>-->
+        <mvc:interceptor>
 
-            <!--&lt;!&ndash; /**表示所有url包括子url路径 &ndash;&gt;-->
+            <!-- /**表示所有url包括子url路径 -->
 
-            <!--<mvc:mapping path="/admin/**"/>-->
-            <!--<mvc:exclude-mapping path="/admin/login"/>-->
-            <!--<bean class="school.coder.interceptor.AdminLoginInterceptor"></bean>-->
+            <mvc:mapping path="/jie/**"/>
+            <mvc:exclude-mapping path="/user/login"/>
+            <bean class="com.neusoft.Interceptor.LoginInterceptor"></bean>
 
-        <!--</mvc:interceptor>-->
+        </mvc:interceptor>
 
-    <!--</mvc:interceptors>-->
+    </mvc:interceptors>
 
 </beans>
