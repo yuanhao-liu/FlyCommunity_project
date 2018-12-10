@@ -116,9 +116,9 @@
   </update>
 
   <select id="selectByUseridAndTopicid" parameterType="int" resultType="map">
-    select tab_comment.comment_time,tab_comment.comment_content,tab_topic.title from tab_comment
+    select tab_comment.topic_id,tab_comment.comment_time,tab_comment.comment_content,tab_topic.title from tab_comment
     join tab_topic on tab_comment.topic_id = tab_topic.id
-    where tab_comment.user_id=#{valus}
+    where tab_comment.user_id=#{value}
     ORDER BY tab_comment.comment_time DESC
   </select>
 

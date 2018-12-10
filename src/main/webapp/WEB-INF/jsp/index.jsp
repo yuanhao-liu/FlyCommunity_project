@@ -88,7 +88,7 @@
                                         </a>
                                         <span><fmt:formatDate value="${zhiding.create_time}" pattern="yyyy-MM-dd"/></span>
 
-                                        <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> ${map.kiss_num}</span>
+                                        <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> ${zhiding.kiss_num}</span>
                                         <c:choose>
                                             <c:when test="${zhiding.is_end==0}"><span class="fly-list-nums"></c:when>
                                             <c:otherwise><span class="layui-badge fly-badge-accept layui-hide-xs">已结</span></c:otherwise>
@@ -258,7 +258,7 @@
                     </c:if>
                     <c:forEach items="${list2}" var="topic">
                         <dd>
-                            <a href="jie/detail.html">${topic.title}</a>
+                            <a href="/jie/godetail/${topic.id}">${topic.title}</a>
                             <span><i class="iconfont icon-pinglun1"></i> ${topic.commentNum}</span>
                         </dd>
                     </c:forEach>

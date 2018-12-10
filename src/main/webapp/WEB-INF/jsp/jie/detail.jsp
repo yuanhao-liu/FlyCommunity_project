@@ -107,7 +107,11 @@
                     </div>
                     <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
                         <span style="padding-right: 10px; color: #FF7200">悬赏：${list.kiss_num}飞吻</span>
-                        <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="add.html">编辑此贴</a></span>
+                        <c:if test="${userinfo != null}">
+                            <c:if test="${userinfo.id == list.userid}">
+                                <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="add.html">编辑此贴</a></span>
+                            </c:if>
+                        </c:if>
                     </div>
                 </div>
                 <div class="detail-body photos">
@@ -159,7 +163,7 @@
                                 </c:if>
                             </div>
                             <div class="detail-body jieda-body photos">
-                                <p>${map1.comment_content}</p>
+                                ${map1.comment_content}
                             </div>
                             <div class="jieda-reply">
               <span class="jieda-zan zanok" type="zan">
@@ -181,15 +185,15 @@
                 </ul>
 
                 <div class="layui-form layui-form-pane">
-                    <form action="/jie/reply/" method="post">
+                    <form action="/jie/reply" method="post">
                         <div class="layui-form-item layui-form-text">
                             <a name="comment"></a>
                             <div class="layui-input-block">
-                                <textarea id="L_content" name="content" required lay-verify="required" placeholder="请输入内容"  class="layui-textarea fly-editor" style="height: 150px;"></textarea>
+                                <textarea id="L_content" name="commentContent" required lay-verify="required" placeholder="请输入内容"  class="layui-textarea fly-editor" style="height: 150px;"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <input type="hidden" name="jid" value="123">
+                            <input type="hidden" name="topicId" value="${list.id}">
                             <button class="layui-btn" lay-filter="*" lay-submit>提交回复</button>
                         </div>
                     </form>
@@ -205,7 +209,7 @@
                 </c:if>
                 <c:forEach items="${list2}" var="topic">
                     <dd>
-                        <a href="jie/detail.html">${topic.title}</a>
+                        <a href="/jie/godetail/${topic.id}">${topic.title}</a>
                         <span><i class="iconfont icon-pinglun1"></i> ${topic.commentNum}</span>
                     </dd>
                 </c:forEach>
@@ -257,12 +261,10 @@
         var $ = layui.$
             ,fly = layui.fly;
         //如果你是采用模版自带的编辑器，你需要开启以下语句来解析。
-        /*
         $('.detail-body').each(function(){
           var othis = $(this), html = othis.html();
           othis.html(fly.content(html));
         });
-        */
     });
 </script>
 

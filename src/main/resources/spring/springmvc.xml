@@ -37,7 +37,8 @@
 
             <!-- /**表示所有url包括子url路径 -->
 
-            <mvc:mapping path="/jie/**"/>
+            <mvc:mapping path="/jie/add"/>
+            <mvc:mapping path="/jie/doadd"/>
             <mvc:exclude-mapping path="/user/login"/>
             <bean class="com.neusoft.Interceptor.LoginInterceptor"></bean>
 

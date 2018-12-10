@@ -1,5 +1,6 @@
 package com.neusoft.controller;
 
+import com.neusoft.domain.Comment;
 import com.neusoft.domain.Topic;
 import com.neusoft.domain.User;
 import com.neusoft.mapper.CommentMapper;
@@ -86,5 +87,20 @@ public class JieController {
         List<Map<String, Object>> maps = commentMapper.selectForDetail(id);
         modelAndView.addObject("list1",maps);
         return modelAndView;
+    }
+    @RequestMapping("reply")
+    @ResponseBody
+    public RegRespObj reply(Comment comment,HttpServletRequest request){
+        RegRespObj regRespObj = new RegRespObj();
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
+        comment.setCommentTime(new Date());
+        comment.setUserId(userinfo.getId());
+        int i = commentMapper.insertSelective(comment);
+        if(i>0){
+            regRespObj.setStatus(0);
+            regRespObj.setAction("/jie/godetail/"+comment.getTopicId());
+        }
+        return regRespObj;
     }
 }

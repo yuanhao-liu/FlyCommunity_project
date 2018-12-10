@@ -77,7 +77,7 @@
                 <ul class="fly-list">
                     <c:forEach items="${list}" var="map">
                         <li>
-                            <a href="user/home.html" class="fly-avatar">
+                            <a href="/goUserHome/${map.userid}" class="fly-avatar">
                                 <c:choose>
                                     <c:when test="${map.pic_path==''}">
                                         <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
@@ -89,7 +89,7 @@
                             </a>
                             <h2>
                                 <a class="layui-badge">${map.name}</a>
-                                <a href="detail.html">${map.title}</a>
+                                <a href="/jie/godetail/${map.id}">${map.title}</a>
                             </h2>
                             <div class="fly-list-info">
                                 <a href="user/home.html" link>
@@ -137,7 +137,7 @@
                 </c:if>
                 <c:forEach items="${list2}" var="topic">
                     <dd>
-                        <a href="">${topic.title}</a>
+                        <a href="/jie/godetail/${topic.id}">${topic.title}</a>
                         <span><i class="iconfont icon-pinglun1"></i> ${topic.commentNum}</span>
                     </dd>
                 </c:forEach>

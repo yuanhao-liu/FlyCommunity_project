@@ -82,7 +82,7 @@
                         <c:otherwise>
                             <c:forEach items="${list}" var="map">
                                 <li>
-                                    <a href="" class="jie-title">${map.title}</a>
+                                    <a href="/jie/godetail/${map.id}" class="jie-title">${map.title}</a>
                                     <i>${map.create_time}</i>
                                     <em class="layui-hide-xs">${map.view_times}阅/${map.comment_num}答</em>
                                 </li>
@@ -106,7 +106,7 @@
                                 <li>
                                     <p>
                                         <span>${map1.comment_time}</span>
-                                        在<a href="" target="_blank">${map1.title}</a>中回答：
+                                        在<a href="/jie/godetail/${map1.topic_id}" target="_blank">${map1.title}</a>中回答：
                                     </p>
                                     <div class="home-dacontent">
                                             ${map1.comment_content}
