@@ -1,6 +1,7 @@
 package com.neusoft.controller;
 
 import com.neusoft.Utils.MD5Utils;
+import com.neusoft.Utils.StringDate;
 import com.neusoft.domain.User;
 import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import sun.util.calendar.LocalGregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -208,11 +210,9 @@ public class UserController {
         List<Map<String, Object>> maps = topicMapper.selectByUserID(userinfo.getId());
         if(maps.get(0).get("create_time")!=null){
             for(Map<String, Object> m:maps){
-                long now = new Date().getTime();
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                long create_time = formatter.parse(m.get("create_time").toString()).getTime();
-                long hour= (now-create_time)/1000/60/60;
-                m.put("create_time",hour);
+                Date create_time = (Date) m.get("create_time");
+                String stringDate = StringDate.getStringDate(create_time);
+                m.put("create_time",stringDate);
             }
         }
         modelAndView.setViewName("/user/home");
@@ -220,11 +220,9 @@ public class UserController {
 
         List<Map<String, Object>> maps1 = commentMapper.selectByUseridAndTopicid(userinfo.getId());
         for(Map<String, Object> m1:maps1){
-            long now1 = new Date().getTime();
-            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            long create_time1 = formatter1.parse(m1.get("comment_time").toString()).getTime();
-            long hour1= (now1-create_time1)/1000/60/60;
-            m1.put("comment_time",hour1);
+            Date create_time = (Date) m1.get("comment_time");
+            String stringDate = StringDate.getStringDate(create_time);
+            m1.put("comment_time",stringDate);
         }
         modelAndView.addObject("list1",maps1);
         return modelAndView;
@@ -246,11 +244,9 @@ public class UserController {
         List<Map<String, Object>> maps1 = userCollectTopicMapper.selectByUseridAndTopicid(userinfo.getId());
         int size1 = maps1.size();
         for(Map<String, Object> m:maps1){
-            long now = new Date().getTime();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            long create_time = formatter.parse(m.get("collect_time").toString()).getTime();
-            long hour= (now-create_time)/1000/60/60;
-            m.put("collect_time",hour);
+            Date create_time = (Date) m.get("collect_time");
+            String stringDate = StringDate.getStringDate(create_time);
+            m.put("collect_time",stringDate);
         }
         modelAndView.addObject("list1",maps1);
         modelAndView.addObject("size1",size1);
@@ -263,11 +259,9 @@ public class UserController {
         User userinfo = (User)session.getAttribute("userinfo");
         List<Map<String, Object>> maps = commentMapper.selectForMessage(userinfo.getId());
         for(Map<String, Object> m:maps){
-            long now = new Date().getTime();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            long create_time = formatter.parse(m.get("comment_time").toString()).getTime();
-            long hour= (now-create_time)/1000/60/60;
-            m.put("comment_time",hour);
+            Date create_time = (Date) m.get("comment_time");
+            String stringDate = StringDate.getStringDate(create_time);
+            m.put("comment_time",stringDate);
         }
         modelAndView.setViewName("/user/message");
         modelAndView.addObject("list",maps);

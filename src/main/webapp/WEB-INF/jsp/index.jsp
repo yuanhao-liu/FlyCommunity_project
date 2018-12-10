@@ -37,11 +37,10 @@
             <c:choose>
                 <c:when test="${userinfo==null}"></c:when>
                 <c:otherwise><!-- 用户登入后显示 -->
-                    <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发表的贴</a></li>
-                    <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html#collection">我收藏的贴</a></li>
+                    <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/goUserIndex">我发表的贴</a></li>
+                    <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/goUserIndex#collection">我收藏的贴</a></li>
                 </c:otherwise>
             </c:choose>
-
         </ul>
 
         <div class="fly-column-right layui-hide-xs">
@@ -79,10 +78,10 @@
                                     </a>
                                     <h2>
                                         <a class="layui-badge">${zhiding.name}</a>
-                                        <a href="jie/detail.html">${zhiding.title}</a>
+                                        <a href="/jie/godetail/${zhiding.id}">${zhiding.title}</a>
                                     </h2>
                                     <div class="fly-list-info">
-                                        <a href="user/home.html" link>
+                                        <a href="/goUserHome/${zhiding.userid}" link>
                                             <cite>${zhiding.nickname}</cite>
                                             <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                                             <i class="layui-badge fly-badge-vip">VIP${zhiding.vip_grade}</i>
@@ -143,7 +142,7 @@
                                 </a>
                                 <h2>
                                     <a class="layui-badge">${map1.name}</a>
-                                    <a href="jie/detail.html">${map1.title}</a>
+                                    <a href="/jie/godetail/${map1.id}">${map1.title}</a>
                                 </h2>
                                 <div class="fly-list-info">
                                     <a href="user/home.html" link>

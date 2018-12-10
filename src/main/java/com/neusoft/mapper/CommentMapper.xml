@@ -135,4 +135,11 @@
     GROUP BY tab_comment.user_id
     ORDER BY count DESC
   </select>
+
+  <select id="selectForDetail" parameterType="int" resultType="map">
+    select * from tab_comment
+    join tab_user on tab_user.id=tab_comment.user_id
+    where tab_comment.topic_id=#{value}
+    ORDER BY tab_comment.comment_time
+  </select>
 </mapper>

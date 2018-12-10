@@ -77,7 +77,7 @@
                                     <blockquote class="layui-elem-quote">
                                         <a href="/jump?username=Absolutely" target="_blank"><cite>${map.nickname}</cite></a>回答了您的求解<a target="_blank" href="/jie/8153.html/page/0/#item-1489505778669"><cite>${map.title}</cite></a>
                                     </blockquote>
-                                    <p><span>${map.comment_time}小时前</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
+                                    <p><span>${map.comment_time}</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
                                 </li>
                             </c:forEach>
                         </c:otherwise>

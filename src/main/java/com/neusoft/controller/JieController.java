@@ -8,6 +8,7 @@ import com.neusoft.mapper.UserMapper;
 import com.neusoft.response.RegRespObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -68,6 +69,22 @@ public class JieController {
 
         List<Topic> topics = topicMapper.selectForReyi();
         modelAndView.addObject("list2",topics);
+        return modelAndView;
+    }
+    @RequestMapping("godetail/{id}")
+    public ModelAndView godetail(HttpServletRequest request, @PathVariable int id){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
+        List<Topic> topics = topicMapper.selectForReyi();
+        modelAndView.addObject("list2",topics);
+        modelAndView.setViewName("/jie/detail");
+
+        Map<String, Object> map = topicMapper.selectByTopicID(id);
+        modelAndView.addObject("list",map);
+
+        List<Map<String, Object>> maps = commentMapper.selectForDetail(id);
+        modelAndView.addObject("list1",maps);
         return modelAndView;
     }
 }

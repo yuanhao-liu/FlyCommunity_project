@@ -95,7 +95,7 @@
                         <c:forEach items="${list1}" var="map1">
                             <li>
                                 <a class="jie-title" href="../jie/detail.html" target="_blank">${map1.title}</a>
-                                <i>收藏于${map1.collect_time}小时前</i>
+                                <i>收藏于${map1.collect_time}</i>
                             </li>
                         </c:forEach>
                     </ul>

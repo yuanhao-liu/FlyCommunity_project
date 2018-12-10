@@ -1,5 +1,6 @@
 package com.neusoft.controller;
 
+import com.neusoft.Utils.StringDate;
 import com.neusoft.domain.Topic;
 import com.neusoft.domain.User;
 import com.neusoft.mapper.CommentMapper;
@@ -53,11 +54,9 @@ public class IndexController {
         List<Map<String, Object>> maps = topicMapper.selectByUserID(id);
         if(maps.get(0).get("create_time") !=null){
             for(Map<String, Object> m:maps){
-                long now = new Date().getTime();
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                long create_time = formatter.parse(m.get("create_time").toString()).getTime();
-                long hour= (now-create_time)/1000/60/60;
-                m.put("create_time",hour);
+                Date create_time = (Date) m.get("create_time");
+                String stringDate = StringDate.getStringDate(create_time);
+                m.put("create_time",stringDate);
             }
         }
         modelAndView.setViewName("/user/home");
@@ -65,11 +64,9 @@ public class IndexController {
 
         List<Map<String, Object>> maps1 = commentMapper.selectByUseridAndTopicid(id);
         for(Map<String, Object> m1:maps1){
-            long now1 = new Date().getTime();
-            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            long create_time1 = formatter1.parse(m1.get("comment_time").toString()).getTime();
-            long hour1= (now1-create_time1)/1000/60/60;
-            m1.put("comment_time",hour1);
+            Date create_time = (Date) m1.get("comment_time");
+            String stringDate = StringDate.getStringDate(create_time);
+            m1.put("comment_time",stringDate);
         }
         modelAndView.addObject("list1",maps1);
         return modelAndView;

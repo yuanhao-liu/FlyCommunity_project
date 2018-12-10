@@ -23,4 +23,6 @@ public interface CommentMapper {
     List<Map<String,Object>> selectForMessage(int id);
 
     List<Map<String,Object>> selectForIndexHuitie();
+
+    List<Map<String,Object>> selectForDetail(int id);
 }

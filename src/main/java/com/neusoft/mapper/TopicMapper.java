@@ -29,4 +29,6 @@ public interface TopicMapper {
     List<Map<String,Object>> selectForPage();
 
     List<Map<String,Object>> selectForZhiding();
+
+    Map<String,Object> selectByTopicID(int id);
 }
