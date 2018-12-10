@@ -37,6 +37,9 @@ public class IndexController {
         modelAndView.setViewName("index");
         modelAndView.addObject("list",maps);
 
+        List<Map<String, Object>> maps2 = topicMapper.selectForZhiding();
+        modelAndView.addObject("zhiding",maps2);
+
         List<Map<String, Object>> maps1 = commentMapper.selectForIndexHuitie();
         modelAndView.addObject("list1",maps1);
 

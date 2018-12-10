@@ -212,18 +212,38 @@
     select *,tab_user.kiss_num as kn from tab_topic
     right join tab_user on tab_topic.userid = tab_user.id
     where tab_user.id=#{value}
+    ORDER BY tab_topic.create_time DESC
   </select>
 
   <select id="selectForIndex" resultType="map">
     select * from tab_topic
     join tab_user on tab_user.id=tab_topic.userid
     join tab_topic_category on tab_topic_category.id=tab_topic.topic_category_id
+    where tab_topic.is_top=0
     ORDER BY tab_topic.create_time DESC
+    LIMIT 10
   </select>
 
   <select id="selectForReyi" resultMap="ResultMapWithBLOBs">
     select * from tab_topic
     ORDER BY comment_num DESC
     LIMIT 10
+  </select>
+
+  <select id="selectForPage" resultType="map">
+    select * from tab_topic
+    join tab_user on tab_user.id=tab_topic.userid
+    join tab_topic_category on tab_topic_category.id=tab_topic.topic_category_id
+    where tab_topic.is_top=0
+    ORDER BY tab_topic.create_time DESC
+    LIMIT 10,10
+  </select>
+
+  <select id="selectForZhiding" resultType="map">
+    select * from tab_topic
+    join tab_user on tab_user.id=tab_topic.userid
+    join tab_topic_category on tab_topic_category.id=tab_topic.topic_category_id
+    where tab_topic.is_top=1
+    ORDER BY tab_topic.create_time DESC
   </select>
 </mapper>

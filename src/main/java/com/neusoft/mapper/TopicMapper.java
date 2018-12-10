@@ -25,4 +25,8 @@ public interface TopicMapper {
     List<Map<String,Object>> selectForIndex();
 
     List<Topic> selectForReyi();
+
+    List<Map<String,Object>> selectForPage();
+
+    List<Map<String,Object>> selectForZhiding();
 }

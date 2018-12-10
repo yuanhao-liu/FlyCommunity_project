@@ -46,10 +46,10 @@
 
         <div class="fly-column-right layui-hide-xs">
             <span class="fly-search"><i class="layui-icon"></i></span>
-            <a href="jie/add" class="layui-btn">发表新帖</a>
+            <a href="/jie/add" class="layui-btn">发表新帖</a>
         </div>
         <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-            <a href="jie/add" class="layui-btn">发表新帖</a>
+            <a href="/jie/add" class="layui-btn">发表新帖</a>
         </div>
     </div>
 </div>
@@ -63,39 +63,39 @@
                     <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_goSignin" style="color: #FF5722;">去签到</a>
                 </div>
                 <ul class="fly-list">
-                    <c:forEach items="${list}" var="map">
+                    <c:forEach items="${zhiding}" var="zhiding">
                         <c:choose>
-                            <c:when test="${map.is_top==1}">
+                            <c:when test="${zhiding.size()>0}">
                                 <li>
-                                    <a href="/goUserHome/${map.userid}" class="fly-avatar">
+                                    <a href="/goUserHome/${zhiding.userid}" class="fly-avatar">
                                         <c:choose>
-                                            <c:when test="${map.pic_path==''}">
+                                            <c:when test="${zhiding.pic_path==''}">
                                                 <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
                                             </c:when>
                                             <c:otherwise>
-                                                <img src="${pageContext.request.contextPath}/res/uploadImgs/${map.pic_path}">
+                                                <img src="${pageContext.request.contextPath}/res/uploadImgs/${zhiding.pic_path}">
                                             </c:otherwise>
                                         </c:choose>
                                     </a>
                                     <h2>
-                                        <a class="layui-badge">${map.name}</a>
-                                        <a href="jie/detail.html">${map.title}</a>
+                                        <a class="layui-badge">${zhiding.name}</a>
+                                        <a href="jie/detail.html">${zhiding.title}</a>
                                     </h2>
                                     <div class="fly-list-info">
                                         <a href="user/home.html" link>
-                                            <cite>${map.nickname}</cite>
+                                            <cite>${zhiding.nickname}</cite>
                                             <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                                            <i class="layui-badge fly-badge-vip">VIP${map.vip_grade}</i>
+                                            <i class="layui-badge fly-badge-vip">VIP${zhiding.vip_grade}</i>
                                         </a>
-                                        <span><fmt:formatDate value="${map.create_time}" pattern="yyyy-MM-dd"/></span>
+                                        <span><fmt:formatDate value="${zhiding.create_time}" pattern="yyyy-MM-dd"/></span>
 
                                         <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> ${map.kiss_num}</span>
                                         <c:choose>
-                                            <c:when test="${map.is_end==0}"><span class="fly-list-nums"></c:when>
+                                            <c:when test="${zhiding.is_end==0}"><span class="fly-list-nums"></c:when>
                                             <c:otherwise><span class="layui-badge fly-badge-accept layui-hide-xs">已结</span></c:otherwise>
                                         </c:choose>
                                         <span class="fly-list-nums">
-                                            <i class="iconfont icon-pinglun1" title="回答"></i> ${map.comment_num}
+                                            <i class="iconfont icon-pinglun1" title="回答"></i> ${zhiding.comment_num}
                                         </span>
                                     </div>
                                 </li>
@@ -130,7 +130,6 @@
 
                 <ul class="fly-list">
                     <c:forEach items="${list}" var="map1">
-                        <c:if test="${map1.is_top==0}">
                             <li>
                                 <a href="/goUserHome/${map1.userid}" class="fly-avatar">
                                     <c:choose>
@@ -172,12 +171,11 @@
                                     </c:choose>
                                 </div>
                             </li>
-                        </c:if>
                     </c:forEach>
                 </ul>
                 <div style="text-align: center">
                     <div class="laypage-main">
-                        <a href="jie/index.html" class="laypage-next">更多求解</a>
+                        <a href="/jie/gojieindex" class="laypage-next">更多求解</a>
                     </div>
                 </div>
 

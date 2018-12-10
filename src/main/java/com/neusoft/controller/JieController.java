@@ -2,6 +2,7 @@ package com.neusoft.controller;
 
 import com.neusoft.domain.Topic;
 import com.neusoft.domain.User;
+import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
 import com.neusoft.mapper.UserMapper;
 import com.neusoft.response.RegRespObj;
@@ -9,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("jie")
@@ -21,6 +25,8 @@ public class JieController {
     TopicMapper topicMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    CommentMapper commentMapper;
     @RequestMapping("add")
     public String add(){
         return "jie/add";
@@ -50,5 +56,18 @@ public class JieController {
         }
 
         return regRespObj;
+    }
+    @RequestMapping("gojieindex")
+    public ModelAndView gojieindex(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
+        List<Map<String, Object>> maps = topicMapper.selectForPage();
+        modelAndView.setViewName("/jie/index");
+        modelAndView.addObject("list",maps);
+
+        List<Topic> topics = topicMapper.selectForReyi();
+        modelAndView.addObject("list2",topics);
+        return modelAndView;
     }
 }
