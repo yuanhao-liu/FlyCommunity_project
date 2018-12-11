@@ -76,7 +76,7 @@
                         <c:when test="${list.is_good==0}"></c:when>
                         <c:otherwise><span class="layui-badge layui-bg-red">精帖</span></c:otherwise>
                     </c:choose>
-                    <div class="fly-admin-box" data-id="123">
+                    <div class="fly-admin-box" data-id="${list.id}">
                         <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
 
                         <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span>

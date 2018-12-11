@@ -5,6 +5,7 @@ import com.neusoft.domain.Topic;
 import com.neusoft.domain.User;
 import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
+import com.neusoft.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,8 @@ public class IndexController {
     TopicMapper topicMapper;
     @Autowired
     CommentMapper commentMapper;
+    @Autowired
+    UserMapper userMapper;
     @RequestMapping("/")
     public ModelAndView index(HttpServletRequest request)
     {
@@ -70,5 +73,10 @@ public class IndexController {
         }
         modelAndView.addObject("list1",maps1);
         return modelAndView;
+    }
+    @RequestMapping("jump/{name}")
+    public ModelAndView dojump(@PathVariable String name) throws ParseException {
+        User user = userMapper.selectByNickname(name);
+        return goUserHome(user.getId());
     }
 }

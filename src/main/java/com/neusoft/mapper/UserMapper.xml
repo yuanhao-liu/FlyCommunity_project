@@ -191,4 +191,8 @@
   <select id="selectByEmailAndPass" parameterType="User" resultMap="BaseResultMap">
     select * from tab_user where email=#{email} and passwd = #{passwd};
   </select>
+
+  <select id="selectByNickname" parameterType="String" resultMap="BaseResultMap">
+    select * from tab_user where nickname=#{value}
+  </select>
 </mapper>

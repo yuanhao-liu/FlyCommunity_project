@@ -80,7 +80,7 @@ layui.define('fly', function(exports){
           id: div.data('id')
         }, function(res){
           if(res.status === 0){
-            location.href = '/jie/';
+            location.href = '/';
           } else {
             layer.msg(res.msg);
           }

@@ -47,24 +47,29 @@ public class JieController {
         RegRespObj regRespObj = new RegRespObj();
         HttpSession session = request.getSession();
         User userinfo = (User)session.getAttribute("userinfo");
-        topic.setUserid(userinfo.getId());
-        topic.setCreateTime(new Date());
-        if((userinfo.getKissNum()-topic.getKissNum())>=0){
-            int i = topicMapper.insertSelective(topic);
-            if(i>0){
-                userinfo.setKissNum(userinfo.getKissNum()-topic.getKissNum());
-                userMapper.updateByPrimaryKeySelective(userinfo);
-                regRespObj.setStatus(0);
-                regRespObj.setAction("/");
+        if(topic.getId()==null){
+            topic.setUserid(userinfo.getId());
+            topic.setCreateTime(new Date());
+            if((userinfo.getKissNum()-topic.getKissNum())>=0){
+                int i = topicMapper.insertSelective(topic);
+                if(i>0){
+                    userinfo.setKissNum(userinfo.getKissNum()-topic.getKissNum());
+                    userMapper.updateByPrimaryKeySelective(userinfo);
+                    regRespObj.setStatus(0);
+                    regRespObj.setAction("/");
+                }else {
+                    regRespObj.setStatus(1);
+                    regRespObj.setMsg("数据库错误，联系管理员");
+                }
             }else {
                 regRespObj.setStatus(1);
-                regRespObj.setMsg("数据库错误，联系管理员");
+                regRespObj.setMsg("您当前飞吻数不够，无法发帖");
             }
-        }else {
-            regRespObj.setStatus(1);
-            regRespObj.setMsg("您当前飞吻数不够，无法发帖");
+        }else{
+            int i = topicMapper.updateByPrimaryKeySelective(topic);
+            regRespObj.setStatus(0);
+            regRespObj.setAction("/jie/godetail/"+topic.getId());
         }
-
         return regRespObj;
     }
     @RequestMapping("gojieindex")

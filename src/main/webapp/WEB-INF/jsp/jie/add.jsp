@@ -71,7 +71,7 @@
                                             <c:when test="${list==null}"><input type="text" id="L_title" name="title" required lay-verify="required" autocomplete="off" class="layui-input"></c:when>
                                             <c:otherwise>
                                                 <input type="text" id="L_title" name="title" required lay-verify="required" autocomplete="off" class="layui-input" value="${list.title}">
-                                                <input type="hidden" name="id" value="{{d.edit.id}}">
+                                                <input type="hidden" name="id" value="${list.id}">
                                             </c:otherwise>
                                         </c:choose>
 

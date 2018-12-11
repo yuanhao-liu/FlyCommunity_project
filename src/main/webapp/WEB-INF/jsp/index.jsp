@@ -65,39 +65,41 @@
                     <c:forEach items="${zhiding}" var="zhiding">
                         <c:choose>
                             <c:when test="${zhiding.size()>0}">
-                                <li>
-                                    <a href="/goUserHome/${zhiding.userid}" class="fly-avatar">
-                                        <c:choose>
-                                            <c:when test="${zhiding.pic_path==''}">
-                                                <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="${pageContext.request.contextPath}/res/uploadImgs/${zhiding.pic_path}">
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </a>
-                                    <h2>
-                                        <a class="layui-badge">${zhiding.name}</a>
-                                        <a href="/jie/godetail/${zhiding.id}">${zhiding.title}</a>
-                                    </h2>
-                                    <div class="fly-list-info">
-                                        <a href="/goUserHome/${zhiding.userid}" link>
-                                            <cite>${zhiding.nickname}</cite>
-                                            <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                                            <i class="layui-badge fly-badge-vip">VIP${zhiding.vip_grade}</i>
+                                <c:if test="${zhiding.is_delete==0}">
+                                    <li>
+                                        <a href="/goUserHome/${zhiding.userid}" class="fly-avatar">
+                                            <c:choose>
+                                                <c:when test="${zhiding.pic_path==''}">
+                                                    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="${pageContext.request.contextPath}/res/uploadImgs/${zhiding.pic_path}">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </a>
-                                        <span><fmt:formatDate value="${zhiding.create_time}" pattern="yyyy-MM-dd"/></span>
+                                        <h2>
+                                            <a class="layui-badge">${zhiding.name}</a>
+                                            <a href="/jie/godetail/${zhiding.id}">${zhiding.title}</a>
+                                        </h2>
+                                        <div class="fly-list-info">
+                                            <a href="/goUserHome/${zhiding.userid}" link>
+                                                <cite>${zhiding.nickname}</cite>
+                                                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
+                                                <i class="layui-badge fly-badge-vip">VIP${zhiding.vip_grade}</i>
+                                            </a>
+                                            <span><fmt:formatDate value="${zhiding.create_time}" pattern="yyyy-MM-dd"/></span>
 
-                                        <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> ${zhiding.kiss_num}</span>
-                                        <c:choose>
+                                            <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> ${zhiding.kiss_num}</span>
+                                            <c:choose>
                                             <c:when test="${zhiding.is_end==0}"><span class="fly-list-nums"></c:when>
                                             <c:otherwise><span class="layui-badge fly-badge-accept layui-hide-xs">已结</span></c:otherwise>
                                         </c:choose>
                                         <span class="fly-list-nums">
                                             <i class="iconfont icon-pinglun1" title="回答"></i> ${zhiding.comment_num}
                                         </span>
-                                    </div>
-                                </li>
+                                        </div>
+                                    </li>
+                                </c:if>
                             </c:when>
                             <c:otherwise>
                                 <div class="fly-list-badge">
