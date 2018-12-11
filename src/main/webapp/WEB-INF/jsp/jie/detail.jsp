@@ -109,7 +109,7 @@
                         <span style="padding-right: 10px; color: #FF7200">悬赏：${list.kiss_num}飞吻</span>
                         <c:if test="${userinfo != null}">
                             <c:if test="${userinfo.id == list.userid}">
-                                <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="add.html">编辑此贴</a></span>
+                                <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="/jie/bianjiadd/${list.id}">编辑此贴</a></span>
                             </c:if>
                         </c:if>
                     </div>
@@ -145,7 +145,7 @@
                                         <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                                         <i class="layui-badge fly-badge-vip">VIP${map1.vip_grade}</i>
                                     </a>
-                                        <c:if test="${status.index==0}">
+                                        <c:if test="${map1.user_id==map1.userid}">
                                             <span>(楼主)</span>
                                         </c:if>
                                     <!--

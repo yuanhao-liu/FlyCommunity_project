@@ -55,20 +55,26 @@
                                     <div class="layui-input-block">
                                         <select lay-verify="required" name="topicCategoryId" lay-filter="column">
                                             <option></option>
-                                            <option value="1">提问</option>
-                                            <option value="2">分享</option>
-                                            <option value="3">讨论</option>
-                                            <option value="4">建议</option>
-                                            <option value="5">公告</option>
-                                            <option value="6">动态</option>
+                                            <option value="1" <c:if test="${list.topicCategoryId==1}">selected</c:if>>提问</option>
+                                            <option value="2" <c:if test="${list.topicCategoryId==2}">selected</c:if>>分享</option>
+                                            <option value="3" <c:if test="${list.topicCategoryId==3}">selected</c:if>>讨论</option>
+                                            <option value="4" <c:if test="${list.topicCategoryId==4}">selected</c:if>>建议</option>
+                                            <option value="5" <c:if test="${list.topicCategoryId==5}">selected</c:if>>公告</option>
+                                            <option value="6" <c:if test="${list.topicCategoryId==6}">selected</c:if>>动态</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="layui-col-md9">
                                     <label for="L_title" class="layui-form-label">标题</label>
                                     <div class="layui-input-block">
-                                        <input type="text" id="L_title" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-                                        <!-- <input type="hidden" name="id" value="{{d.edit.id}}"> -->
+                                        <c:choose>
+                                            <c:when test="${list==null}"><input type="text" id="L_title" name="title" required lay-verify="required" autocomplete="off" class="layui-input"></c:when>
+                                            <c:otherwise>
+                                                <input type="text" id="L_title" name="title" required lay-verify="required" autocomplete="off" class="layui-input" value="${list.title}">
+                                                <input type="hidden" name="id" value="{{d.edit.id}}">
+                                            </c:otherwise>
+                                        </c:choose>
+
                                     </div>
                                 </div>
                             </div>
@@ -101,14 +107,21 @@
                             </div>
                             <div class="layui-form-item layui-form-text">
                                 <div class="layui-input-block">
-                                    <textarea id="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
+                                    <c:choose>
+                                        <c:when test="${list==null}">
+                                            <textarea id="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <textarea id="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;">${list.content}</textarea>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-inline">
                                     <label class="layui-form-label">悬赏飞吻</label>
                                     <div class="layui-input-inline" style="width: 190px;">
-                                        <select name="kissNum">
+                                        <select name="kissNum" <c:if test="${list!=null}">disabled</c:if>>
                                             <option value="20">20</option>
                                             <option value="30">30</option>
                                             <option value="50">50</option>

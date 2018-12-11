@@ -33,6 +33,14 @@ public class JieController {
     public String add(){
         return "jie/add";
     }
+    @RequestMapping("bianjiadd/{id}")
+    public ModelAndView bianjiadd(@PathVariable int id){
+        ModelAndView modelAndView = new ModelAndView();
+        Topic topic = topicMapper.selectByPrimaryKey(id);
+        modelAndView.setViewName("jie/add");
+        modelAndView.addObject("list",topic);
+        return modelAndView;
+    }
     @RequestMapping("doadd")
     @ResponseBody
     public RegRespObj doAdd(Topic topic, HttpServletRequest request){
