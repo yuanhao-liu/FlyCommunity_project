@@ -107,16 +107,24 @@ public class JieController {
         RegRespObj regRespObj = new RegRespObj();
         HttpSession session = request.getSession();
         User userinfo = (User)session.getAttribute("userinfo");
-        comment.setCommentTime(new Date());
-        comment.setUserId(userinfo.getId());
-        Topic topic = topicMapper.selectByPrimaryKey(comment.getTopicId());
-        topic.setCommentNum(topic.getCommentNum()+1);
-        topicMapper.updateByPrimaryKeySelective(topic);
-        int i = commentMapper.insertSelective(comment);
-        if(i>0){
-            regRespObj.setStatus(0);
-            regRespObj.setAction("/jie/godetail/"+comment.getTopicId());
+
+        if(userinfo!=null){
+            comment.setCommentTime(new Date());
+            comment.setUserId(userinfo.getId());
+            Topic topic = topicMapper.selectByPrimaryKey(comment.getTopicId());
+            topic.setCommentNum(topic.getCommentNum()+1);
+            topicMapper.updateByPrimaryKeySelective(topic);
+            int i = commentMapper.insertSelective(comment);
+            if(i>0){
+                regRespObj.setStatus(0);
+                regRespObj.setAction("/jie/godetail/"+comment.getTopicId());
+            }
+        }else{
+            String referer = request.getHeader("Referer");
+            session.setAttribute("referer",referer);
+            regRespObj.setAction("/user/login");
         }
+
         return regRespObj;
     }
 }
