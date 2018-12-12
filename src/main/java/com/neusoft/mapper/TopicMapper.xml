@@ -258,12 +258,13 @@
     select * from tab_topic
     join tab_user on tab_user.id=tab_topic.userid
     join tab_topic_category on tab_topic_category.id=tab_topic.topic_category_id
-    where tab_topic.is_top=0
+    where tab_topic.is_top=0 and tab_topic.is_delete =0
     ORDER BY tab_topic.create_time DESC
     limit #{pageStart},#{pageSize}
   </select>
 
   <select id="getTotalCount" resultType="int">
-    select count(*) from tab_topic
+select count(*) from tab_topic
+where is_delete=0 and is_top=0
   </select>
 </mapper>

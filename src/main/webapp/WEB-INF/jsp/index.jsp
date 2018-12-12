@@ -128,7 +128,6 @@
             <a href="">按热议</a>
           </span>
                 </div>
-
                 <ul class="fly-list" id="fenye_data">
                     <%--<c:forEach items="${list}" var="map1">
                         <c:if test="${map1.is_delete==0}">
@@ -181,7 +180,6 @@
                         <a href="/jie/gojieindex" class="laypage-next">更多求解</a>
                     </div>--%>
                 </div>
-
             </div>
         </div>
         <div class="layui-col-md4">
@@ -318,7 +316,7 @@
                     <a href="/jie/godetail/{{item.id}}">{{item.title}}</a>
                 </h2>
                 <div class="fly-list-info">
-                    <a href="user/home.html" link>
+                    <a href="/goUserHome/{{item.userid}}" link>
                         <cite>{{item.nickname}}</cite>
                         <!--
                         <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>

@@ -109,6 +109,9 @@ public class JieController {
         User userinfo = (User)session.getAttribute("userinfo");
         comment.setCommentTime(new Date());
         comment.setUserId(userinfo.getId());
+        Topic topic = topicMapper.selectByPrimaryKey(comment.getTopicId());
+        topic.setCommentNum(topic.getCommentNum()+1);
+        topicMapper.updateByPrimaryKeySelective(topic);
         int i = commentMapper.insertSelective(comment);
         if(i>0){
             regRespObj.setStatus(0);

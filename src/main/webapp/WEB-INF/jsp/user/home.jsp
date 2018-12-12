@@ -195,7 +195,7 @@
     </p>
 </div>
 
-<%--<script src="${pageContext.request.contextPath}/res/layui/layui.js"></script>--%>
+<script src="${pageContext.request.contextPath}/res/layui/layui.all.js"></script>
 <script>
     layui.cache.page = 'user';
     layui.cache.user = {
