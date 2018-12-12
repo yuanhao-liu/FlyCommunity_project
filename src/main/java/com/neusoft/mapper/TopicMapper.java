@@ -1,6 +1,7 @@
 package com.neusoft.mapper;
 
 import com.neusoft.domain.Topic;
+import com.neusoft.response.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -31,4 +32,8 @@ public interface TopicMapper {
     List<Map<String,Object>> selectForZhiding();
 
     Map<String,Object> selectByTopicID(int id);
+
+    List<Map<String,Object>> selectForFenye(PageInfo pageInfo);
+
+    int getTotalCount();
 }

@@ -1,6 +1,7 @@
 package com.neusoft.mapper;
 
 import com.neusoft.domain.Comment;
+import com.neusoft.response.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -25,4 +26,8 @@ public interface CommentMapper {
     List<Map<String,Object>> selectForIndexHuitie();
 
     List<Map<String,Object>> selectForDetail(int id);
+
+    int getTotal(int id);
+
+    List<Map<String,Object>> getPageInfo(PageInfo pageInfo);
 }

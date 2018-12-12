@@ -7,6 +7,7 @@ import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
 import com.neusoft.mapper.UserCollectTopicMapper;
 import com.neusoft.mapper.UserMapper;
+import com.neusoft.response.PageInfo;
 import com.neusoft.response.RegRespObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -226,6 +227,24 @@ public class UserController {
         }
         modelAndView.addObject("list1",maps1);
         return modelAndView;
+    }
+    @RequestMapping("getFenye")
+    @ResponseBody
+    public Map<String,Object> getFenye(HttpServletRequest request,PageInfo pageInfo) throws ParseException {
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
+        int total = commentMapper.getTotal(userinfo.getId());
+
+        List<Map<String, Object>> pageInfo1 = commentMapper.getPageInfo(pageInfo);
+        for(Map<String, Object> m:pageInfo1){
+            Date comment_time = (Date) m.get("comment_time");
+            String stringDate = StringDate.getStringDate(comment_time);
+            m.put("comment_time",stringDate);
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("total",total);
+        map.put("datas",pageInfo1);
+        return map;
     }
     @RequestMapping("goUserIndex")
     public ModelAndView goUserIndex(HttpServletRequest request) throws ParseException {

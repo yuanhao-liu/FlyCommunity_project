@@ -6,10 +6,12 @@ import com.neusoft.domain.User;
 import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
 import com.neusoft.mapper.UserMapper;
+import com.neusoft.response.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,5 +81,20 @@ public class IndexController {
     public ModelAndView dojump(@PathVariable String name) throws ParseException {
         User user = userMapper.selectByNickname(name);
         return goUserHome(user.getId());
+    }
+    @RequestMapping("get_paged_topic")
+    @ResponseBody
+    public Map<String,Object> getpagedtopic(PageInfo pageInfo){
+        int totalCount = topicMapper.getTotalCount();
+        List<Map<String, Object>> maps = topicMapper.selectForFenye(pageInfo);
+        for(Map<String, Object> m:maps){
+            Date create_time = (Date) m.get("create_time");
+            String stringDate = StringDate.getStringDate(create_time);
+            m.put("create_time",stringDate);
+        }
+        Map<String,Object> map =new HashMap<>();
+        map.put("total",totalCount);
+        map.put("datas",maps);
+        return map;
     }
 }

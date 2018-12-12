@@ -19,11 +19,74 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/layui/css/layui.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/css/global.css">
     <script src="${pageContext.request.contextPath}/res/jquery-3.3.1.js"></script>
+    <script src="${pageContext.request.contextPath}/res/layui/layui.all.js"></script>
+    <script>
+        $(function () {
+            getPageInfo();
+        });
+
+        function getPageInfo(pageInfo){
+            if(!pageInfo){
+                pageInfo={};
+                pageInfo.pageIndex=1;
+                pageInfo.pageSize=3;
+                pageInfo.userId=${list1[0].user_id};
+            }
+
+            $.post({
+                url:"${pageContext.request.contextPath}/user/getFenye",
+                data:pageInfo,
+                dataType:"json",
+                success:function (data) {
+                    var laypage = layui.laypage;
+                        laypage.render({
+                            elem: 'fenye_page' //注意，这里的 test1 是 ID，不用加 # 号
+                            ,limit:pageInfo.pageSize
+                            ,count:data.total//数据总数，从服务端得到
+                            ,curr:pageInfo.pageIndex
+                            ,first:"首页"
+                            ,last:"尾页"
+                            ,jump: function(obj, first){
+                                //obj包含了当前分页的所有参数，比如：
+//                        console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+//                        console.log(obj.limit); //得到每页显示的条数
+                                if(!first)
+                                {
+                                    pageInfo.pageIndex=obj.curr;
+                                    pageInfo.pageSize=obj.limit;
+                                    getPageInfo(pageInfo);
+                                }
+                            }
+                        });
+
+                    var getTpl = demo.innerHTML;
+                    var view = document.getElementById('fenye_data');
+
+                    layui.laytpl(getTpl).render(data, function(html){
+                        view.innerHTML = html;
+                    });
+                }
+            });
+        }
+    </script>
+    <script id="demo" type="text/html">
+        <ul class="home-jieda">
+            {{# layui.each(d.datas,function(index, item){ }}
+            <li>
+                <p>
+                    <span>{{item.comment_time}}</span>
+                    在<a href="/jie/godetail/{{item.topic_id}}" target="_blank">{{item.title}}</a>中回答：
+                </p>
+                <div class="home-dacontent">
+                    {{item.comment_content}}
+                </div>
+            </li>
+            {{#  }); }}
+        </ul>
+    </script>
 </head>
 <body style="margin-top: 65px;">
-
 <%@include file="../common/header.jsp"%>
-
 <div class="fly-home fly-panel" style="background-image: url();">
     <c:choose>
         <c:when test="${list[0].pic_path==''}">
@@ -96,7 +159,7 @@
         <div class="layui-col-md6 fly-home-da">
             <div class="fly-panel">
                 <h3 class="fly-panel-title">${list[0].nickname} 最近的回答</h3>
-                <ul class="home-jieda">
+               <%-- <ul class="home-jieda">
                     <c:choose>
                         <c:when test="${list1.size()==0}">
                              <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><span>没有回答任何问题</span></div>
@@ -115,7 +178,9 @@
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
-                </ul>
+                </ul>--%>
+                <div id="fenye_data"></div>
+                <div id="fenye_page"></div>
             </div>
         </div>
     </div>
@@ -130,7 +195,7 @@
     </p>
 </div>
 
-<script src="${pageContext.request.contextPath}/res/layui/layui.js"></script>
+<%--<script src="${pageContext.request.contextPath}/res/layui/layui.js"></script>--%>
 <script>
     layui.cache.page = 'user';
     layui.cache.user = {
