@@ -13,7 +13,8 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         HttpSession session = httpServletRequest.getSession();
         Object userinfo = session.getAttribute("userinfo");
-
+        String s = httpServletRequest.getRequestURL().toString();
+        session.setAttribute("referer",s);
         if(userinfo!=null){
             return true;
         }else {

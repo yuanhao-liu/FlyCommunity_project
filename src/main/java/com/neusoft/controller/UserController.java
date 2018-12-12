@@ -119,15 +119,14 @@ public class UserController {
             httpSession.setAttribute("userinfo",userResult);
             String referer = (String) httpSession.getAttribute("referer");
             httpSession.removeAttribute("referer");
+
             regRespObj.setStatus(0);
             if(referer==null){
                 regRespObj.setAction(request.getServletContext().getContextPath() + "/");
             }else {
                 regRespObj.setAction(referer);
             }
-
         }
-
         return regRespObj;
     }
 
