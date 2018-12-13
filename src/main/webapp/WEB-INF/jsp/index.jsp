@@ -98,6 +98,12 @@
                                             <i class="iconfont icon-pinglun1" title="回答"></i> ${zhiding.comment_num}
                                         </span>
                                         </div>
+                                        <div class="fly-list-badge">
+                                            <span class="layui-badge layui-bg-black">置顶</span>
+                                            <c:if test="${zhiding.is_good==1}">
+                                               <span class="layui-badge layui-bg-red">精帖</span>
+                                            </c:if>
+                                        </div>
                                     </li>
                                 </c:if>
                             </c:when>
@@ -125,56 +131,10 @@
 
                 </div>
                 <ul class="fly-list" id="fenye_data">
-                    <%--<c:forEach items="${list}" var="map1">
-                        <c:if test="${map1.is_delete==0}">
-                            <li>
-                                <a href="/goUserHome/${map1.userid}" class="fly-avatar">
-                                    <c:choose>
-                                        <c:when test="${map1.pic_path==''}">
-                                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="${pageContext.request.contextPath}/res/uploadImgs/${map1.pic_path}">
-                                        </c:otherwise>
-                                    </c:choose>
-                                </a>
-                                <h2>
-                                    <a class="layui-badge">${map1.name}</a>
-                                    <a href="/jie/godetail/${map1.id}">${map1.title}</a>
-                                </h2>
-                                <div class="fly-list-info">
-                                    <a href="user/home.html" link>
-                                        <cite>${map1.nickname}</cite>
-                                        <!--
-                                        <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                                        <i class="layui-badge fly-badge-vip">VIP3</i>
-                                        -->
-                                    </a>
-                                    <span><fmt:formatDate value="${map1.create_time}" pattern="yyyy-MM-dd"/></span>
 
-                                    <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> ${map1.kiss_num}</span>
-                                    <c:choose>
-                                    <c:when test="${map1.is_end==0}"><span class="fly-list-nums"></c:when>
-                                    <c:otherwise><span class="layui-badge fly-badge-accept layui-hide-xs">已结</span></c:otherwise>
-                                    </c:choose>
-                                    <span class="fly-list-nums">
-                                        <i class="iconfont icon-pinglun1" title="回答"></i> ${map1.comment_num}
-                                    </span>
-                                </div>
-                                <div class="fly-list-badge">
-                                    <c:choose>
-                                        <c:when test="${map1.is_good==1}"><span class="layui-badge layui-bg-red">精帖</span></c:when>
-                                        <c:otherwise></c:otherwise>
-                                    </c:choose>
-                                </div>
-                            </li>
-                        </c:if>
-                    </c:forEach>--%>
                 </ul>
                 <div style="text-align: center" id="fenye_page">
-                    <%--<div class="laypage-main">
-                        <a href="/jie/gojieindex" class="laypage-next">更多求解</a>
-                    </div>--%>
+
                 </div>
             </div>
         </div>
