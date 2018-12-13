@@ -54,7 +54,8 @@ public class UserController {
     {
         RegRespObj regRespObj = new RegRespObj();
         User user1 = userMapper.selectByEmail(user.getEmail());
-        if(user1==null){
+        User user2 = userMapper.selectByNickname(user.getNickname());
+        if(user1==null && user2==null){
             user.setKissNum(100);
             user.setJoinTime(new Date());
             String passwd = user.getPasswd();
@@ -71,7 +72,7 @@ public class UserController {
             }
         }else {
             regRespObj.setStatus(1);
-            regRespObj.setMsg("邮箱重复，请换邮箱注册");
+            regRespObj.setMsg("邮箱或用户名重复，请重新注册");
         }
         return regRespObj;
 
@@ -85,6 +86,18 @@ public class UserController {
             regRespObj.setMsg("可以注册");
         }else {
             regRespObj.setMsg("邮箱重复，请更换邮箱");
+        }
+        return regRespObj;
+    }
+    @RequestMapping("checkNickname/{name}")
+    @ResponseBody
+    public RegRespObj checkNickname(@PathVariable String name){
+        RegRespObj regRespObj = new RegRespObj();
+        User user = userMapper.selectByNickname(name);
+        if(user==null){
+            regRespObj.setMsg("昵称可用");
+        }else {
+            regRespObj.setMsg("昵称重复，请重新输入");
         }
         return regRespObj;
     }

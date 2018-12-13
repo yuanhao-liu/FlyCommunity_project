@@ -49,7 +49,30 @@
                 }
             })
         });
+        function checkNickname(name) {
+            var patt = /^[0-9\u4e00-\u9fa5]{1,10}$/;
+            return patt.test(name);
+        }
 
+        $(function () {
+            $("#L_username").blur(function () {
+                if(!checkNickname($(this).val())){
+                    alert("昵称只能10位内，只能包含汉字和数字");
+                    $(this).val("");
+                }else{
+                    $.get({
+                        url:"${pageContext.request.contextPath}/user/checkNickname/"+$("#L_username").val(),
+                        dataType:"json",
+                        success:function (data) {
+                            $("#check_nickname").text(data.msg);
+                            if(data.msg=="昵称重复，请重新输入"){
+                                $("#L_username").val("");
+                            }
+                        }
+                    })
+                }
+            })
+        })
 
 
 
@@ -82,6 +105,7 @@
                                 <label for="L_username" class="layui-form-label">昵称</label>
                                 <div class="layui-input-inline">
                                     <input type="text" id="L_username" name="nickname" required lay-verify="required" autocomplete="off" class="layui-input">
+                                    <span id="check_nickname"></span>
                                 </div>
                             </div>
                             <div class="layui-form-item">
