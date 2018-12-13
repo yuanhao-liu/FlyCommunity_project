@@ -27,13 +27,13 @@
 <div class="fly-panel fly-column">
     <div class="layui-container">
         <ul class="layui-clear">
-            <li class="layui-hide-xs"><a href="/">首页</a></li>
-            <li class="layui-this"><a href="">提问</a></li>
-            <li><a href="">分享<span class="layui-badge-dot"></span></a></li>
-            <li><a href="">讨论</a></li>
-            <li><a href="">建议</a></li>
-            <li><a href="">公告</a></li>
-            <li><a href="">动态</a></li>
+            <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
+            <li><a href="/jie/gojieindex/1">提问</a></li>
+            <li><a href="/jie/gojieindex/2">分享<span class="layui-badge-dot"></span></a></li>
+            <li><a href="/jie/gojieindex/3">讨论</a></li>
+            <li><a href="/jie/gojieindex/4">建议</a></li>
+            <li><a href="/jie/gojieindex/5">公告</a></li>
+            <li><a href="/jie/gojieindex/6">动态</a></li>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
             <c:choose>
                 <c:when test="${userinfo==null}"></c:when>
@@ -74,56 +74,14 @@
           </span>
                 </div>
 
-                <ul class="fly-list">
-                    <c:forEach items="${list}" var="map">
-                        <li>
-                            <a href="/goUserHome/${map.userid}" class="fly-avatar">
-                                <c:choose>
-                                    <c:when test="${map.pic_path==''}">
-                                        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img src="${pageContext.request.contextPath}/res/uploadImgs/${map.pic_path}">
-                                    </c:otherwise>
-                                </c:choose>
-                            </a>
-                            <h2>
-                                <a class="layui-badge">${map.name}</a>
-                                <a href="/jie/godetail/${map.id}">${map.title}</a>
-                            </h2>
-                            <div class="fly-list-info">
-                                <a href="user/home.html" link>
-                                    <cite>${map.nickname}</cite>
-                                    <!--
-                                    <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                                    <i class="layui-badge fly-badge-vip">VIP3</i>
-                                    -->
-                                </a>
-                                <span>${map.create_time}</span>
+                <ul class="fly-list" id="fenye_data">
 
-                                <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> ${map.kiss_num}</span>
-                                <c:choose>
-                                <c:when test="${map.is_end==0}"><span class="fly-list-nums"></c:when>
-                                <c:otherwise><span class="layui-badge fly-badge-accept layui-hide-xs">已结</span></c:otherwise>
-                                </c:choose>
-                                <span class="fly-list-nums">
-                <i class="iconfont icon-pinglun1" title="回答"></i> ${map.comment_num}
-              </span>
-                            </div>
-                            <div class="fly-list-badge">
-                                <c:choose>
-                                    <c:when test="${map.is_good==1}"><span class="layui-badge layui-bg-red">精帖</span></c:when>
-                                    <c:otherwise></c:otherwise>
-                                </c:choose>
-                            </div>
-                        </li>
-                    </c:forEach>
                 </ul>
 
                 <!-- <div class="fly-none">没有相关数据</div> -->
 
-                <div style="text-align: center">
-                    <div class="laypage-main"><span class="laypage-curr">1</span><a href="/jie/page/2/">2</a><a href="/jie/page/3/">3</a><a href="/jie/page/4/">4</a><a href="/jie/page/5/">5</a><span>…</span><a href="/jie/page/148/" class="laypage-last" title="尾页">尾页</a><a href="/jie/page/2/" class="laypage-next">下一页</a></div>
+                <div style="text-align: center" id="fenye_page">
+
                 </div>
 
             </div>
@@ -177,8 +135,97 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/res/layui/layui.js"></script>
+<script id="demo" type="text/html">
+    {{# layui.each(d.datas,function(index, item){ }}
+    {{# if(item.is_delete==0){  }}
+    <li>
+        <a href="/goUserHome/{{item.userid}}" class="fly-avatar">
+            {{# if(item.pic_path==''){ }}
+            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
+            {{# }else{  }}
+            <img src="${pageContext.request.contextPath}/res/uploadImgs/{{item.pic_path}}">
+            {{#  }   }}
+        </a>
+        <h2>
+            <a class="layui-badge">{{item.name}}</a>
+            <a href="/jie/godetail/{{item.id}}">{{item.title}}</a>
+        </h2>
+        <div class="fly-list-info">
+            <a href="/goUserHome/{{item.userid}}" link>
+                <cite>{{item.nickname}}</cite>
+                <!--
+                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
+                <i class="layui-badge fly-badge-vip">VIP3</i>
+                -->
+            </a>
+            <span>{{item.create_time}}</span>
+
+            <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> {{item.kiss_num}}</span>
+            {{#  if(item.is_end==0){  }}
+            <span class="fly-list-nums"></span>
+            {{#   }else{   }}
+            <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
+            {{#  }   }}
+
+            <span class="fly-list-nums">
+                        <i class="iconfont icon-pinglun1" title="回答"></i> {{item.comment_num}}
+                    </span>
+        </div>
+        <div class="fly-list-badge">
+            {{#if(item.is_good==1){}}
+            <span class="layui-badge layui-bg-red">精帖</span>
+            {{#}}}
+        </div>
+    </li>
+    {{#  }   }}
+    {{#  }); }}
+</script>
 <script>
-    layui.cache.page = 'jie';
+    function getPagedTopic(pageInfo,jq){
+        var $ = jq;
+        if(!pageInfo)
+        {
+            var pageInfo = {};
+            pageInfo.pageIndex = 1;
+            pageInfo.pageSize = 10;
+            pageInfo.cid=${cid};
+        }
+
+        $.post({
+            url:'${pageContext.request.contextPath}/get_paged_topic',
+            dataType:'json',
+            data:pageInfo,
+            success:function (data) {
+//                alert(res.topics[0].title);
+                //1.渲染分页组件
+                layui.laypage.render({
+                    elem: 'fenye_page' //注意，这里的 test1 是 ID，不用加 # 号
+                    ,limit:pageInfo.pageSize
+                    ,curr:pageInfo.pageIndex
+                    ,count:data.total//数据总数，从服务端得到
+                    ,first:"首页"
+                    ,last:"尾页"
+                    ,jump:function (obj,fisrt) {
+                        if(!fisrt)
+                        {
+                            pageInfo.pageSize = obj.limit;
+                            pageInfo.pageIndex = obj.curr;
+                            pageInfo.cid=${cid};
+                            getPagedTopic(pageInfo,$);
+                        }
+                    }
+                });
+                //2.渲染帖子列表
+                var getTpl = demo.innerHTML;
+                var view = document.getElementById('fenye_data');
+
+                layui.laytpl(getTpl).render(data, function(html){
+                    view.innerHTML = html;
+                });
+            }
+        })
+    }
+    layui.cache.page = '';
     layui.cache.user = {
         username: '游客'
         ,uid: -1
@@ -188,10 +235,14 @@
     };
     layui.config({
         version: "3.0.0"
-        ,base: '${pageContext.request.contextPath}/res/mods/'
+        ,base: '${pageContext.request.contextPath}/res/mods/' //这里实际使用时，建议改成绝对路径
     }).extend({
         fly: 'index'
-    }).use('fly');
+    }).use(['fly','laypage','laytpl'],function () {
+        var jq = layui.jquery;
+        //请求第一页的数据（每页2条）
+        getPagedTopic(null,jq);
+    });
 </script>
 
 </body>

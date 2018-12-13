@@ -72,11 +72,12 @@ public class JieController {
         }
         return regRespObj;
     }
-    @RequestMapping("gojieindex")
-    public ModelAndView gojieindex(HttpServletRequest request){
+    @RequestMapping("gojieindex/{cid}")
+    public ModelAndView gojieindex(HttpServletRequest request,@PathVariable int cid){
         ModelAndView modelAndView = new ModelAndView();
         HttpSession session = request.getSession();
         User userinfo = (User)session.getAttribute("userinfo");
+        modelAndView.addObject("cid",cid);
         List<Map<String, Object>> maps = topicMapper.selectForPage();
         modelAndView.setViewName("/jie/index");
         modelAndView.addObject("list",maps);

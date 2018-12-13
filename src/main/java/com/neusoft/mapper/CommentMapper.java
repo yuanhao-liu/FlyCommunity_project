@@ -30,4 +30,6 @@ public interface CommentMapper {
     int getTotal(int id);
 
     List<Map<String,Object>> getPageInfo(PageInfo pageInfo);
+
+
 }

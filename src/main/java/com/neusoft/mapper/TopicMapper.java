@@ -36,4 +36,7 @@ public interface TopicMapper {
     List<Map<String,Object>> selectForFenye(PageInfo pageInfo);
 
     int getTotalCount();
+
+    int getFenleiCount(int id);
+    List<Map<String,Object>> selectForFenlei(PageInfo pageInfo);
 }

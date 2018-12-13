@@ -91,16 +91,29 @@ public class IndexController {
     @RequestMapping("get_paged_topic")
     @ResponseBody
     public Map<String,Object> getpagedtopic(PageInfo pageInfo){
-        int totalCount = topicMapper.getTotalCount();
-        List<Map<String, Object>> maps = topicMapper.selectForFenye(pageInfo);
-        for(Map<String, Object> m:maps){
-            Date create_time = (Date) m.get("create_time");
-            String stringDate = StringDate.getStringDate(create_time);
-            m.put("create_time",stringDate);
+        Map<String,Object> map=new HashMap<>();
+        if(pageInfo.getCid()==0){
+            int totalCount = topicMapper.getTotalCount();
+            List<Map<String, Object>> maps = topicMapper.selectForFenye(pageInfo);
+            for(Map<String, Object> m:maps){
+                Date create_time = (Date) m.get("create_time");
+                String stringDate = StringDate.getStringDate(create_time);
+                m.put("create_time",stringDate);
+            }
+            map.put("total",totalCount);
+            map.put("datas",maps);
+        }else {
+            int fenleiCount = topicMapper.getFenleiCount(pageInfo.getCid());
+            List<Map<String, Object>> maps = topicMapper.selectForFenlei(pageInfo);
+            for(Map<String, Object> m:maps){
+                Date create_time = (Date) m.get("create_time");
+                String stringDate = StringDate.getStringDate(create_time);
+                m.put("create_time",stringDate);
+            }
+            map.put("total",fenleiCount);
+            map.put("datas",maps);
         }
-        Map<String,Object> map =new HashMap<>();
-        map.put("total",totalCount);
-        map.put("datas",maps);
+
         return map;
     }
 }

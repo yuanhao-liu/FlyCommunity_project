@@ -27,12 +27,12 @@
     <div class="layui-container">
         <ul class="layui-clear">
             <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
-            <li><a href="/">提问</a></li>
-            <li><a href="/">分享<span class="layui-badge-dot"></span></a></li>
-            <li><a href="/">讨论</a></li>
-            <li><a href="/">建议</a></li>
-            <li><a href="/">公告</a></li>
-            <li><a href="/">动态</a></li>
+            <li><a href="/jie/gojieindex/1">提问</a></li>
+            <li><a href="/jie/gojieindex/2">分享<span class="layui-badge-dot"></span></a></li>
+            <li><a href="/jie/gojieindex/3">讨论</a></li>
+            <li><a href="/jie/gojieindex/4">建议</a></li>
+            <li><a href="/jie/gojieindex/5">公告</a></li>
+            <li><a href="/jie/gojieindex/6">动态</a></li>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
             <c:choose>
                 <c:when test="${userinfo==null}"></c:when>

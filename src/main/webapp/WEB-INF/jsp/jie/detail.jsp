@@ -19,6 +19,15 @@
     <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/layui/css/layui.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/css/global.css">
+    <script src="${pageContext.request.contextPath}/res/jquery-3.3.1.js"></script>
+    <script>
+        $(function () {
+           var x=$("#jieda").find("i[title=最佳答案]").length;
+           if(x>0){
+               $("span[type=accept]").hide();
+           }
+        })
+    </script>
 </head>
 <body>
 
@@ -148,7 +157,7 @@
                         <li class="fly-none">消灭零回复</li>
                     </c:if>
                     <c:forEach items="${list1}" var="map1" varStatus="status">
-                        <li data-id="111" class="jieda-daan">
+                        <li data-id="${map1.id}" class="jieda-daan">
                             <a name="item-1111111111"></a>
                             <div class="detail-about detail-about-reply">
                                 <a class="fly-avatar" href="/goUserHome/${map1.user_id}">
@@ -193,9 +202,13 @@
                 回复
               </span>
                                 <div class="jieda-admin">
-                                    <span type="edit">编辑</span>
-                                    <span type="del">删除</span>
-                                    <!-- <span class="jieda-accept" type="accept">采纳</span> -->
+                                    <%--<span type="edit">编辑</span>
+                                    <span type="del">删除</span>--%>
+                                    <c:if test="${map1.is_choose==0}">
+                                        <c:if test="${userinfo.id==map1.userid}">
+                                            <span class="jieda-accept" type="accept">采纳</span>
+                                        </c:if>
+                                    </c:if>
                                 </div>
                             </div>
                         </li>
