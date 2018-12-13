@@ -70,7 +70,7 @@
   </update>
 
   <select id="selectByUseridAndTopicid" parameterType="int" resultType="map">
-      select tab_topic.title,tab_user_collect_topic.collect_time from tab_user_collect_topic
+      select tab_topic.title,tab_user_collect_topic.collect_time,tab_user_collect_topic.topic_id from tab_user_collect_topic
       join tab_topic on tab_user_collect_topic.topic_id=tab_topic.id
       where user_id=#{value}
   </select>

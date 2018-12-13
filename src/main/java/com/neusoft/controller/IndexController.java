@@ -80,7 +80,13 @@ public class IndexController {
     @RequestMapping("jump/{name}")
     public ModelAndView dojump(@PathVariable String name) throws ParseException {
         User user = userMapper.selectByNickname(name);
-        return goUserHome(user.getId());
+        if(user==null){
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("/other/404");
+            return modelAndView;
+        }else {
+            return goUserHome(user.getId());
+        }
     }
     @RequestMapping("get_paged_topic")
     @ResponseBody

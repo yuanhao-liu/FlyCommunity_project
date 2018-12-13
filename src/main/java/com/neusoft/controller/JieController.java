@@ -86,10 +86,12 @@ public class JieController {
         return modelAndView;
     }
     @RequestMapping("godetail/{id}")
-    public ModelAndView godetail(HttpServletRequest request, @PathVariable int id){
+    public ModelAndView godetail(@PathVariable int id){
         ModelAndView modelAndView = new ModelAndView();
-        HttpSession session = request.getSession();
-        User userinfo = (User)session.getAttribute("userinfo");
+        Topic topic = topicMapper.selectByPrimaryKey(id);
+        topic.setViewTimes(topic.getViewTimes()+1);
+        topicMapper.updateByPrimaryKeySelective(topic);
+
         List<Topic> topics = topicMapper.selectForReyi();
         modelAndView.addObject("list2",topics);
         modelAndView.setViewName("/jie/detail");

@@ -80,9 +80,9 @@
                         <c:forEach items="${list}" var="map">
                             <c:if test="${size>0}">
                                 <li>
-                                    <a class="jie-title" href="../jie/detail.html" target="_blank">${map.title}</a>
+                                    <a class="jie-title" href="/jie/godetail/${map.id}" target="_blank">${map.title}</a>
                                     <i><fmt:formatDate value="${map.create_time}" pattern="yyyy-MM-dd HH:mm:ss"/></i>
-                                    <a class="mine-edit" href="/jie/edit/8116">编辑</a>
+                                    <a class="mine-edit" href="/jie/bianjiadd/${map.id}">编辑</a>
                                     <em>${map.view_times}阅/${map.comment_num}答</em>
                                 </li>
                             </c:if>
@@ -94,7 +94,7 @@
                     <ul class="mine-view jie-row">
                         <c:forEach items="${list1}" var="map1">
                             <li>
-                                <a class="jie-title" href="../jie/detail.html" target="_blank">${map1.title}</a>
+                                <a class="jie-title" href="/jie/godetail/${map1.topic_id}" target="_blank">${map1.title}</a>
                                 <i>收藏于${map1.collect_time}</i>
                             </li>
                         </c:forEach>
