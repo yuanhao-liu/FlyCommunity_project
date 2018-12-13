@@ -28,12 +28,12 @@
     <div class="layui-container">
         <ul class="layui-clear">
             <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
-            <li><a href="/jie/gojieindex/1">提问</a></li>
-            <li><a href="/jie/gojieindex/2">分享<span class="layui-badge-dot"></span></a></li>
-            <li><a href="/jie/gojieindex/3">讨论</a></li>
-            <li><a href="/jie/gojieindex/4">建议</a></li>
-            <li><a href="/jie/gojieindex/5">公告</a></li>
-            <li><a href="/jie/gojieindex/6">动态</a></li>
+            <li><a href="/jie/gojieindex/1/0">提问</a></li>
+            <li><a href="/jie/gojieindex/2/0">分享<span class="layui-badge-dot"></span></a></li>
+            <li><a href="/jie/gojieindex/3/0">讨论</a></li>
+            <li><a href="/jie/gojieindex/4/0">建议</a></li>
+            <li><a href="/jie/gojieindex/5/0">公告</a></li>
+            <li><a href="/jie/gojieindex/6/0">动态</a></li>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
             <c:choose>
                 <c:when test="${userinfo==null}"></c:when>
@@ -59,19 +59,14 @@
         <div class="layui-col-md8">
             <div class="fly-panel" style="margin-bottom: 0;">
 
-                <div class="fly-panel-title fly-filter">
-                    <a href="" class="layui-this">综合</a>
+                <div class="fly-panel-title fly-filter" id="topic_fenlei">
+                    <a href="/jie/gojieindex/${cid}/0" class="layui-this">综合</a>
                     <span class="fly-mid"></span>
-                    <a href="">未结</a>
+                    <a href="/jie/gojieindex/${cid}/1">未结</a>
                     <span class="fly-mid"></span>
-                    <a href="">已结</a>
+                    <a href="/jie/gojieindex/${cid}/2">已结</a>
                     <span class="fly-mid"></span>
-                    <a href="">精华</a>
-                    <span class="fly-filter-right layui-hide-xs">
-            <a href="" class="layui-this">按最新</a>
-            <span class="fly-mid"></span>
-            <a href="">按热议</a>
-          </span>
+                    <a href="/jie/gojieindex/${cid}/3">精华</a>
                 </div>
 
                 <ul class="fly-list" id="fenye_data">
@@ -189,6 +184,7 @@
             pageInfo.pageIndex = 1;
             pageInfo.pageSize = 10;
             pageInfo.cid=${cid};
+            pageInfo.typeid=${typeid};
         }
 
         $.post({
@@ -211,6 +207,7 @@
                             pageInfo.pageSize = obj.limit;
                             pageInfo.pageIndex = obj.curr;
                             pageInfo.cid=${cid};
+                            pageInfo.typeid=${typeid};
                             getPagedTopic(pageInfo,$);
                         }
                     }
@@ -240,8 +237,11 @@
         fly: 'index'
     }).use(['fly','laypage','laytpl'],function () {
         var jq = layui.jquery;
+        var $ = layui.jquery;
         //请求第一页的数据（每页2条）
         getPagedTopic(null,jq);
+
+        $("#topic_fenlei").find("a").eq(${typeid}).addClass('layui-this').siblings().removeClass('layui-this');
     });
 </script>
 

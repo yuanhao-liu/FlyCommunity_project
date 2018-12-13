@@ -33,34 +33,32 @@
 
 <%@include file="../common/header.jsp"%>
 
-<div class="layui-hide-xs">
-    <div class="fly-panel fly-column">
-        <div class="layui-container">
-            <ul class="layui-clear">
-                <li class="layui-hide-xs"><a href="/">首页</a></li>
-                <li class="layui-this"><a href="">提问</a></li>
-                <li><a href="">分享<span class="layui-badge-dot"></span></a></li>
-                <li><a href="">讨论</a></li>
-                <li><a href="">建议</a></li>
-                <li><a href="">公告</a></li>
-                <li><a href="">动态</a></li>
-                <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
-                <c:choose>
-                    <c:when test="${userinfo==null}"></c:when>
-                    <c:otherwise><!-- 用户登入后显示 -->
-                        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/goUserIndex">我发表的贴</a></li>
-                        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/goUserIndex#collection">我收藏的贴</a></li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
+<div class="fly-panel fly-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
+            <li><a href="/jie/gojieindex/1">提问</a></li>
+            <li><a href="/jie/gojieindex/2">分享<span class="layui-badge-dot"></span></a></li>
+            <li><a href="/jie/gojieindex/3">讨论</a></li>
+            <li><a href="/jie/gojieindex/4">建议</a></li>
+            <li><a href="/jie/gojieindex/5">公告</a></li>
+            <li><a href="/jie/gojieindex/6">动态</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
+            <c:choose>
+                <c:when test="${userinfo==null}"></c:when>
+                <c:otherwise><!-- 用户登入后显示 -->
+                    <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/goUserIndex">我发表的贴</a></li>
+                    <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/goUserIndex#collection">我收藏的贴</a></li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
 
-            <div class="fly-column-right layui-hide-xs">
-                <span class="fly-search"><i class="layui-icon"></i></span>
-                <a href="/jie/add" class="layui-btn">发表新帖</a>
-            </div>
-            <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-                <a href="/jie/add" class="layui-btn">发表新帖</a>
-            </div>
+        <div class="fly-column-right layui-hide-xs">
+            <span class="fly-search"><i class="layui-icon"></i></span>
+            <a href="/jie/add" class="layui-btn">发表新帖</a>
+        </div>
+        <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
+            <a href="/jie/add" class="layui-btn">发表新帖</a>
         </div>
     </div>
 </div>

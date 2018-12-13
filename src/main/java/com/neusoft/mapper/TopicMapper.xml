@@ -259,27 +259,35 @@
     select * from tab_topic
     join tab_user on tab_user.id=tab_topic.userid
     join tab_topic_category on tab_topic_category.id=tab_topic.topic_category_id
-    where tab_topic.is_top=0 and tab_topic.is_delete =0
+    <include refid="topic_condition"></include>
     ORDER BY tab_topic.create_time DESC
     limit #{pageStart},#{pageSize}
   </select>
 
-  <select id="selectForFenlei" parameterType="com.neusoft.response.PageInfo" resultType="map">
-    select * from tab_topic
-    join tab_user on tab_user.id=tab_topic.userid
-    join tab_topic_category on tab_topic_category.id=tab_topic.topic_category_id
-    where tab_topic.is_top=0 and tab_topic.is_delete =0 and tab_topic.topic_category_id=#{cid}
-    ORDER BY tab_topic.create_time DESC
-    limit #{pageStart},#{pageSize}
-  </select>
 
   <select id="getTotalCount" resultType="int">
 select count(*) from tab_topic
-where is_delete=0 and is_top=0
+<include refid="topic_condition"></include>
   </select>
 
-  <select id="getFenleiCount" parameterType="int" resultType="int">
-select count(*) from tab_topic
-where is_delete=0 and is_top=0 and topic_category_id=#{value}
-  </select>
+
+  <sql id="topic_condition">
+    <where>
+      tab_topic.is_delete=0 and tab_topic.is_top=0
+      <if test="cid != null and cid != 0">
+        and tab_topic.topic_category_id = #{cid}
+      </if>
+      <if test="typeid != null and typeid != 0">
+        <if test="typeid == 1">
+          and tab_topic.is_end = 0
+        </if>
+        <if test="typeid == 2">
+          and tab_topic.is_end = 1
+        </if>
+        <if test="typeid == 3">
+          and tab_topic.is_good = 1
+        </if>
+      </if>
+    </where>
+  </sql>
 </mapper>

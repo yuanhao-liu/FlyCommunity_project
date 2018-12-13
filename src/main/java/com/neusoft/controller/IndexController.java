@@ -42,6 +42,7 @@ public class IndexController {
         User userinfo = (User)session.getAttribute("userinfo");
         List<Map<String, Object>> maps = topicMapper.selectForIndex();
         modelAndView.setViewName("index");
+        modelAndView.addObject("typeid",0);
         modelAndView.addObject("list",maps);
 
         List<Map<String, Object>> maps2 = topicMapper.selectForZhiding();
@@ -92,7 +93,7 @@ public class IndexController {
     @ResponseBody
     public Map<String,Object> getpagedtopic(PageInfo pageInfo){
         Map<String,Object> map=new HashMap<>();
-        if(pageInfo.getCid()==0){
+        /*if(pageInfo.getCid()==0){
             int totalCount = topicMapper.getTotalCount();
             List<Map<String, Object>> maps = topicMapper.selectForFenye(pageInfo);
             for(Map<String, Object> m:maps){
@@ -112,8 +113,16 @@ public class IndexController {
             }
             map.put("total",fenleiCount);
             map.put("datas",maps);
+        }*/
+        int totalCount = topicMapper.getTotalCount(pageInfo);
+        List<Map<String, Object>> maps = topicMapper.selectForFenye(pageInfo);
+        for(Map<String, Object> m:maps){
+            Date create_time = (Date) m.get("create_time");
+            String stringDate = StringDate.getStringDate(create_time);
+            m.put("create_time",stringDate);
         }
-
+        map.put("total",totalCount);
+        map.put("datas",maps);
         return map;
     }
 }
