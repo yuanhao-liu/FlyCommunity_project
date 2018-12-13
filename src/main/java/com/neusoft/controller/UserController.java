@@ -237,9 +237,8 @@ public class UserController {
     @RequestMapping("getFenye")
     @ResponseBody
     public Map<String,Object> getFenye(HttpServletRequest request,PageInfo pageInfo) throws ParseException {
-        HttpSession session = request.getSession();
-        User userinfo = (User)session.getAttribute("userinfo");
-        int total = commentMapper.getTotal(userinfo.getId());
+
+        int total = commentMapper.getTotal(pageInfo.getUserId());
 
         List<Map<String, Object>> pageInfo1 = commentMapper.getPageInfo(pageInfo);
         for(Map<String, Object> m:pageInfo1){

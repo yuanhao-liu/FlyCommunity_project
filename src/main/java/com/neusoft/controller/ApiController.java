@@ -24,4 +24,36 @@ public class ApiController {
         regRespObj.setStatus(0);
         return regRespObj;
     }
+    @RequestMapping("jie-set")
+    @ResponseBody
+    public RegRespObj jiezhiding(int id,int rank,String field){
+        RegRespObj regRespObj = new RegRespObj();
+        if(field.equals("stick")){
+            if(rank==1){
+                Topic topic = topicMapper.selectByPrimaryKey(id);
+                topic.setIsTop(1);
+                topicMapper.updateByPrimaryKeySelective(topic);
+                regRespObj.setStatus(0);
+            }else {
+                Topic topic = topicMapper.selectByPrimaryKey(id);
+                topic.setIsTop(0);
+                topicMapper.updateByPrimaryKeySelective(topic);
+                regRespObj.setStatus(0);
+            }
+        }
+        if(field.equals("status")){
+            if(rank==1){
+                Topic topic = topicMapper.selectByPrimaryKey(id);
+                topic.setIsGood(1);
+                topicMapper.updateByPrimaryKeySelective(topic);
+                regRespObj.setStatus(0);
+            }else {
+                Topic topic = topicMapper.selectByPrimaryKey(id);
+                topic.setIsGood(0);
+                topicMapper.updateByPrimaryKeySelective(topic);
+                regRespObj.setStatus(0);
+            }
+        }
+        return  regRespObj;
+    }
 }

@@ -77,13 +77,31 @@
                         <c:otherwise><span class="layui-badge layui-bg-red">精帖</span></c:otherwise>
                     </c:choose>
                     <div class="fly-admin-box" data-id="${list.id}">
-                        <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
+                        <c:if test="${userinfo != null}">
+                            <c:if test="${userinfo.id == list.userid}">
+                                <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
+                            </c:if>
+                        </c:if>
 
-                        <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span>
-                        <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span> -->
-
-                        <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">加精</span>
-                        <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span> -->
+                        <c:if test="${userinfo.id==1}">
+                            <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
+                            <c:choose>
+                                <c:when test="${list.is_top==0}">
+                                    <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${list.is_good==0}">
+                                    <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">加精</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:if>
                     </div>
                     <span class="fly-list-nums"> 
             <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> ${list.comment_num}</a>
