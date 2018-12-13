@@ -89,7 +89,8 @@ public class ApiController {
         comment.setIsChoose(1);
         commentMapper.updateByPrimaryKeySelective(comment);
         Topic topic = topicMapper.selectByPrimaryKey(comment.getTopicId());
-
+        topic.setIsEnd(1);
+        topicMapper.updateByPrimaryKeySelective(topic);
         User user = userMapper.selectByPrimaryKey(comment.getUserId());
         user.setKissNum(user.getKissNum()+topic.getKissNum());
         userMapper.updateByPrimaryKeySelective(user);
