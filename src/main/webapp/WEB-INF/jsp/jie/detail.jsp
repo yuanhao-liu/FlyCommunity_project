@@ -133,7 +133,7 @@
                     <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
                         <span style="padding-right: 10px; color: #FF7200">悬赏：${list.kiss_num}飞吻</span>
                         <c:if test="${userinfo != null}">
-                            <c:if test="${userinfo.id == list.userid}">
+                            <c:if test="${userinfo.id == list.userid and list.is_end==0}">
                                 <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="/jie/bianjiadd/${list.id}">编辑此贴</a></span>
                             </c:if>
                         </c:if>

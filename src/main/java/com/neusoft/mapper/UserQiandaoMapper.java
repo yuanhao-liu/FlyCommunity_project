@@ -2,6 +2,8 @@ package com.neusoft.mapper;
 
 import com.neusoft.domain.UserQiandao;
 
+import java.util.Map;
+
 public interface UserQiandaoMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,8 @@ public interface UserQiandaoMapper {
     int updateByPrimaryKeySelective(UserQiandao record);
 
     int updateByPrimaryKey(UserQiandao record);
+
+    UserQiandao selectByUserID(Integer id);
+
+    Map<String,Object> selectForQiandao(Integer id);
 }

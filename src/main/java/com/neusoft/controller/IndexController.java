@@ -6,6 +6,7 @@ import com.neusoft.domain.User;
 import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
 import com.neusoft.mapper.UserMapper;
+import com.neusoft.mapper.UserQiandaoMapper;
 import com.neusoft.response.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ public class IndexController {
     CommentMapper commentMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    UserQiandaoMapper userQiandaoMapper;
     @RequestMapping("/")
     public ModelAndView index(HttpServletRequest request)
     {
@@ -53,6 +56,11 @@ public class IndexController {
 
         List<Topic> topics = topicMapper.selectForReyi();
         modelAndView.addObject("list2",topics);
+
+        if(userinfo!=null){
+            Map<String, Object> qiandaoMap = userQiandaoMapper.selectForQiandao(userinfo.getId());
+            modelAndView.addObject("qiandao",qiandaoMap);
+        }
         return modelAndView;
     }
     @RequestMapping("goUserHome/{id}")
