@@ -130,6 +130,7 @@ public class UserController {
         {
             HttpSession httpSession = request.getSession();
             httpSession.setAttribute("userinfo",userResult);
+            httpSession.setAttribute("alreadyZan",new ArrayList<>());
             String referer = (String) httpSession.getAttribute("referer");
             httpSession.removeAttribute("referer");
 

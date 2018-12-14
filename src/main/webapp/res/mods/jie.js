@@ -145,9 +145,9 @@ layui.define('fly', function(exports){
       }, function(res){
         if(res.status === 0){
           var zans = othis.find('em').html()|0;
-          othis[ok ? 'removeClass' : 'addClass']('zanok');
+          //othis[ok ? 'removeClass' : 'addClass']('zanok');
           // othis.find('em').html(ok ? (--zans) : (++zans));
-          othis.find('em').html(ok ? (--zans) : (++zans));
+          othis.find('em').html(ok ? (++zans) : (++zans));
         } else {
           layer.msg(res.msg);
         }

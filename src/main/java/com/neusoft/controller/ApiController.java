@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("api")
@@ -69,22 +73,24 @@ public class ApiController {
     }
     @RequestMapping("jieda-zan")
     @ResponseBody
-    public RegRespObj jiedazhan(int id , boolean ok, HttpServletRequest request){
+    public RegRespObj jiedazhan(int id ,  HttpServletRequest request){
         RegRespObj regRespObj = new RegRespObj();
         HttpSession session = request.getSession();
         User userinfo = (User) session.getAttribute("userinfo");
+
         if(userinfo==null){
             regRespObj.setStatus(1);
             regRespObj.setMsg("请先登录");
         }else {
-            if(ok){
+            List<Object> list = (List<Object>) session.getAttribute("alreadyZan");
+            if(list.contains(id)){
+                regRespObj.setStatus(1);
+                regRespObj.setMsg("你已经赞过了");
+            }else {
+                list.add(id);
+                session.setAttribute("alreadyZan",list);
                 Comment comment = commentMapper.selectByPrimaryKey(id);
                 comment.setLikeNum(comment.getLikeNum()+1);
-                commentMapper.updateByPrimaryKeySelective(comment);
-                regRespObj.setStatus(0);
-            }else {
-                Comment comment = commentMapper.selectByPrimaryKey(id);
-                comment.setLikeNum(comment.getLikeNum()-1);
                 commentMapper.updateByPrimaryKeySelective(comment);
                 regRespObj.setStatus(0);
             }
