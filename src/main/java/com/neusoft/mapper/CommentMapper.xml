@@ -141,7 +141,7 @@
     join tab_user on tab_user.id=tab_comment.user_id
     join tab_topic on tab_topic.id=tab_comment.topic_id
     where tab_comment.topic_id=#{value}
-    ORDER BY tab_comment.like_num desc,tab_comment.comment_time
+    ORDER BY  tab_comment.is_choose desc,tab_comment.like_num desc,tab_comment.comment_time
   </select>
 
   <select id="getTotal" parameterType="int" resultType="int">
