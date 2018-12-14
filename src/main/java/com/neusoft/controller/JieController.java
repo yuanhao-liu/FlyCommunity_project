@@ -47,7 +47,7 @@ public class JieController {
         RegRespObj regRespObj = new RegRespObj();
         HttpSession session = request.getSession();
         User userinfo = (User)session.getAttribute("userinfo");
-        if(topic.getId()==null){
+        if(topic.getId()==null){ //发表新帖子
             topic.setUserid(userinfo.getId());
             topic.setCreateTime(new Date());
             if((userinfo.getKissNum()-topic.getKissNum())>=0){
@@ -65,7 +65,7 @@ public class JieController {
                 regRespObj.setStatus(1);
                 regRespObj.setMsg("您当前飞吻数不够，无法发帖");
             }
-        }else{
+        }else{ //编辑帖子
             int i = topicMapper.updateByPrimaryKeySelective(topic);
             regRespObj.setStatus(0);
             regRespObj.setAction("/jie/godetail/"+topic.getId());

@@ -56,7 +56,7 @@
                                 <div class="layui-col-md3">
                                     <label class="layui-form-label">所在专栏</label>
                                     <div class="layui-input-block">
-                                        <select lay-verify="required" name="topicCategoryId" lay-filter="column">
+                                        <select lay-verify="required" name="topicCategoryId" lay-filter="column"  <c:if test="${list!=null}">disabled</c:if>>
                                             <option></option>
                                             <option value="1" <c:if test="${list.topicCategoryId==1}">selected</c:if>>提问</option>
                                             <option value="2" <c:if test="${list.topicCategoryId==2}">selected</c:if>>分享</option>
@@ -124,11 +124,11 @@
                                     <label class="layui-form-label">悬赏飞吻</label>
                                     <div class="layui-input-inline" style="width: 190px;">
                                         <select name="kissNum" <c:if test="${list!=null}">disabled</c:if>>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="50">50</option>
-                                            <option value="60">60</option>
-                                            <option value="80">80</option>
+                                            <option value="20" <c:if test="${list.kissNum==20}">selected</c:if>>20</option>
+                                            <option value="30" <c:if test="${list.kissNum==30}">selected</c:if>>30</option>
+                                            <option value="50" <c:if test="${list.kissNum==50}">selected</c:if>>50</option>
+                                            <option value="60" <c:if test="${list.kissNum==60}">selected</c:if>>60</option>
+                                            <option value="80" <c:if test="${list.kissNum==80}">selected</c:if>>80</option>
                                         </select>
                                     </div>
                                     <div class="layui-form-mid layui-word-aux">发表后无法更改飞吻</div>
