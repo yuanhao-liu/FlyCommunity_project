@@ -11,14 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @Controller
 @RequestMapping("api")
@@ -112,6 +113,25 @@ public class ApiController {
         userMapper.updateByPrimaryKeySelective(user);
 
         regRespObj.setStatus(0);
+        return regRespObj;
+    }
+    @RequestMapping("upload")
+    @ResponseBody
+    public RegRespObj HuifuUpload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
+        RegRespObj regRespObj = new RegRespObj();
+        if(file.getSize()>0){
+            String realPath = request.getServletContext().getRealPath("/res/uploadImgs");
+            File file1 = new File(realPath);
+            if(!file1.exists()){
+                file1.mkdirs();
+            }
+            UUID uuid = UUID.randomUUID();
+            File file2 = new File(realPath+File.separator+uuid+file.getOriginalFilename());
+            file.transferTo(file2);
+
+            regRespObj.setStatus(0);
+            regRespObj.setUrl("/res/uploadImgs/"+uuid+file.getOriginalFilename());
+        }
         return regRespObj;
     }
 }
