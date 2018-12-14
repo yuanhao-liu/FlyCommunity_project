@@ -44,7 +44,10 @@
         <div class="layui-form layui-form-pane">
             <div class="layui-tab layui-tab-brief" lay-filter="user">
                 <ul class="layui-tab-title">
-                    <li class="layui-this">发表新帖<!-- 编辑帖子 --></li>
+                    <li class="layui-this"><c:choose>
+                        <c:when test="${list==null}">发表新帖</c:when>
+                        <c:otherwise>编辑帖子</c:otherwise>
+                    </c:choose></li>
                 </ul>
                 <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
                     <div class="layui-tab-item layui-show">
@@ -74,7 +77,6 @@
                                                 <input type="hidden" name="id" value="${list.id}">
                                             </c:otherwise>
                                         </c:choose>
-
                                     </div>
                                 </div>
                             </div>
