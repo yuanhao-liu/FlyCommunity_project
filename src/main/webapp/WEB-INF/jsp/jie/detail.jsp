@@ -203,7 +203,7 @@
                                     <%--<span type="edit">编辑</span>
                                     <span type="del">删除</span>--%>
                                     <c:if test="${map1.is_choose==0}">
-                                        <c:if test="${userinfo.id==map1.userid}">
+                                        <c:if test="${userinfo.id==map1.userid and map1.userid!=map1.user_id}">
                                             <span class="jieda-accept" type="accept">采纳</span>
                                         </c:if>
                                     </c:if>
