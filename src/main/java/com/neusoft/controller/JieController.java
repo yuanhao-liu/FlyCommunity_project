@@ -5,6 +5,7 @@ import com.neusoft.domain.Topic;
 import com.neusoft.domain.User;
 import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
+import com.neusoft.mapper.UserCollectTopicMapper;
 import com.neusoft.mapper.UserMapper;
 import com.neusoft.response.RegRespObj;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +31,8 @@ public class JieController {
     UserMapper userMapper;
     @Autowired
     CommentMapper commentMapper;
+    @Autowired
+    UserCollectTopicMapper userCollectTopicMapper;
     @RequestMapping("add")
     public String add(){
         return "jie/add";
@@ -89,8 +93,10 @@ public class JieController {
         return modelAndView;
     }
     @RequestMapping("godetail/{id}")
-    public ModelAndView godetail(@PathVariable int id){
+    public ModelAndView godetail(@PathVariable int id,HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
         Topic topic = topicMapper.selectByPrimaryKey(id);
         topic.setViewTimes(topic.getViewTimes()+1);
         topicMapper.updateByPrimaryKeySelective(topic);
@@ -104,6 +110,14 @@ public class JieController {
 
         List<Map<String, Object>> maps = commentMapper.selectForDetail(id);
         modelAndView.addObject("list1",maps);
+
+        if(userinfo!=null){
+            Map<String,Object> collectMap=new HashMap<>();
+            collectMap.put("userId",userinfo.getId());
+            collectMap.put("topicId",id);
+            Map<String, Object> stringObjectMap = userCollectTopicMapper.selectForCollect(collectMap);
+            modelAndView.addObject("collectMap",stringObjectMap);
+        }
         return modelAndView;
     }
     @RequestMapping("reply")

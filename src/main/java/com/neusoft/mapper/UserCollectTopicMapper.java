@@ -18,5 +18,9 @@ public interface UserCollectTopicMapper {
 
     int updateByPrimaryKey(UserCollectTopic record);
 
-    List<Map<String,Object>> selectByUseridAndTopicid(int id);
+    List<Map<String,Object>> selectByUseridAndTopicid(Integer id);
+
+    int deleteByUserIdAndTopicId(Map<String,Object> map);
+
+    Map<String,Object> selectForCollect(Map<String,Object> map);
 }

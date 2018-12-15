@@ -1,11 +1,23 @@
 package com.neusoft.domain;
 
+import java.util.Date;
+
 public class UserCollectTopic {
     private Integer id;
 
     private Integer userId;
 
     private Integer topicId;
+
+    private Date collectTime;
+
+    public Date getCollectTime() {
+        return collectTime;
+    }
+
+    public void setCollectTime(Date collectTime) {
+        this.collectTime = collectTime;
+    }
 
     public Integer getId() {
         return id;

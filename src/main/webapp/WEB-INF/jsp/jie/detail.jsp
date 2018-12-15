@@ -130,12 +130,22 @@
                         </a>
                         <span><fmt:formatDate value="${list.create_time}" pattern="yyyy-MM-dd"/></span>
                     </div>
-                    <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
+                    <div class="detail-hits" id="LAY_jieAdmin" data-id="${list.id}">
                         <span style="padding-right: 10px; color: #FF7200">悬赏：${list.kiss_num}飞吻</span>
                         <c:if test="${userinfo != null}">
                             <c:if test="${userinfo.id == list.userid and list.is_end==0}">
                                 <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="/jie/bianjiadd/${list.id}">编辑此贴</a></span>
                             </c:if>
+                        </c:if>
+                        <c:if test="${userinfo!=null}">
+                            <c:choose>
+                                <c:when test="${collectMap==null}">
+                                    <span class="layui-btn layui-btn-xs jie-admin" type="collect" data-type="add">收藏</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="layui-btn layui-btn-xs jie-admin layui-btn-danger" type="collect" data-type="remove">取消收藏</span>
+                                </c:otherwise>
+                            </c:choose>
                         </c:if>
                     </div>
                 </div>
