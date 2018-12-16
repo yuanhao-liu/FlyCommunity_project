@@ -173,7 +173,7 @@
                     <a href="javascript:;" class="fly-link" id="LAY_signinHelp">说明</a>
                     <i class="fly-mid"></i>
                     <%--<a href="javascript:;" class="fly-link" id="LAY_signinTop">活跃榜<span class="layui-badge-dot"></span></a>--%>
-                    <span class="fly-signin-days">已总共签到<cite>${qiandao.total}</cite>天</span>
+                    <span class="fly-signin-days">已连续签到<cite>${qiandao.total}</cite>天</span>
                 </div>
                 <div class="fly-panel-main fly-signin-main">
                     <c:choose>

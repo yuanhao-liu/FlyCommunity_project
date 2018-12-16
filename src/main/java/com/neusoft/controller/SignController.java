@@ -45,9 +45,19 @@ public class SignController {
                 userMapper.updateByPrimaryKeySelective(user);
                 regRespObj.setStatus(0);
             }else {
-                userQiandao.setTotal(userQiandao.getTotal()+1);
-                userQiandao.setCreateTime(new Date());
-                userQiandaoMapper.updateByPrimaryKeySelective(userQiandao);
+                Date createTime = userQiandao.getCreateTime();
+                int signday = createTime.getDate();
+                Date date1 = new Date();
+                int nowday = date1.getDate();
+                if((nowday-signday)==1){
+                    userQiandao.setTotal(userQiandao.getTotal()+1);
+                    userQiandao.setCreateTime(date1);
+                    userQiandaoMapper.updateByPrimaryKeySelective(userQiandao);
+                }else{
+                    userQiandao.setTotal(1);
+                    userQiandao.setCreateTime(date1);
+                    userQiandaoMapper.updateByPrimaryKeySelective(userQiandao);
+                }
 
                 User user = userMapper.selectByPrimaryKey(userinfo.getId());
                 user.setKissNum(user.getKissNum()+5);
@@ -55,7 +65,6 @@ public class SignController {
                 regRespObj.setStatus(0);
             }
         }
-
         return regRespObj;
     }
 }
