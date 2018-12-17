@@ -295,14 +295,25 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         HttpSession session = request.getSession();
         User userinfo = (User)session.getAttribute("userinfo");
-        List<Map<String, Object>> maps = commentMapper.selectForMessage(userinfo.getId());
+        /*List<Map<String, Object>> maps = commentMapper.selectForMessage(userinfo.getId());
         for(Map<String, Object> m:maps){
             Date create_time = (Date) m.get("comment_time");
             String stringDate = StringDate.getStringDate(create_time);
             m.put("comment_time",stringDate);
         }
+        modelAndView.addObject("list",maps);*/
+
         modelAndView.setViewName("/user/message");
-        modelAndView.addObject("list",maps);
+        Map<String,Object> messegeMap=new HashMap<>();
+        messegeMap.put("userId",userinfo.getId());
+        messegeMap.put("userNickname",userinfo.getNickname());
+        List<Map<String, Object>> forMessege = commentMapper.getForMessege(messegeMap);
+        for(Map<String, Object> m:forMessege){
+            Date create_time = (Date) m.get("comment_time");
+            String stringDate = StringDate.getStringDate(create_time);
+            m.put("comment_time",stringDate);
+        }
+        modelAndView.addObject("forMessege",forMessege);
         return modelAndView;
     }
 }

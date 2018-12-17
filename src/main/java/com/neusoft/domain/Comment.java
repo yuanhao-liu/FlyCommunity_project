@@ -17,6 +17,16 @@ public class Comment {
 
     private Date commentTime;
 
+    private Integer isMessage;
+
+    public Integer getIsMessage() {
+        return isMessage;
+    }
+
+    public void setIsMessage(Integer isMessage) {
+        this.isMessage = isMessage;
+    }
+
     public Integer getId() {
         return id;
     }

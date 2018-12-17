@@ -68,16 +68,16 @@
                 <!--<div class="fly-none">您暂时没有最新消息</div>-->
                 <ul class="mine-msg">
                     <c:choose>
-                        <c:when test="${list.size()==0}">
+                        <c:when test="${forMessege.size()==0}">
                            <div class="fly-none">您暂时没有最新消息</div>
                         </c:when>
                         <c:otherwise>
-                            <c:forEach items="${list}" var="map">
-                                <li data-id="123">
+                            <c:forEach items="${forMessege}" var="forMessege">
+                                <li data-id="${forMessege.id}">
                                     <blockquote class="layui-elem-quote">
-                                        <a href="/jump?username=Absolutely" target="_blank"><cite>${map.nickname}</cite></a>回答了您的求解<a target="_blank" href="/jie/8153.html/page/0/#item-1489505778669"><cite>${map.title}</cite></a>
+                                        <a href="/jump/${forMessege.nickname}" target="_blank"><cite>${forMessege.nickname}</cite></a>在${forMessege.name}<a target="_blank" href="/jie/godetail/${forMessege.topic_id}"><cite>${forMessege.title}</cite></a><span>中回复了你</span>
                                     </blockquote>
-                                    <p><span>${map.comment_time}</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
+                                    <p><span>${forMessege.comment_time}</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
                                 </li>
                             </c:forEach>
                         </c:otherwise>
