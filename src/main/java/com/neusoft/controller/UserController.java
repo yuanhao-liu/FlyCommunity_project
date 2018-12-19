@@ -316,4 +316,20 @@ public class UserController {
         modelAndView.addObject("forMessege",forMessege);
         return modelAndView;
     }
+    @RequestMapping("messageFenye")
+    @ResponseBody
+    public Map<String,Object> messageFenye(PageInfo pageInfo){
+        int totalForMessageFenye = commentMapper.getTotalForMessageFenye(pageInfo);
+        List<Map<String, Object>> dataForMessageFenye = commentMapper.getDataForMessageFenye(pageInfo);
+        for(Map<String, Object> m:dataForMessageFenye){
+            Date create_time = (Date) m.get("comment_time");
+            String stringDate = StringDate.getStringDate(create_time);
+            m.put("comment_time",stringDate);
+        }
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("total",totalForMessageFenye);
+        map.put("datas",dataForMessageFenye);
+        return map;
+    }
 }

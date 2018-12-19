@@ -32,4 +32,7 @@ public interface CommentMapper {
     List<Map<String,Object>> getPageInfo(PageInfo pageInfo);
 
     List<Map<String,Object>> getForMessege(Map<String,Object> map);
+
+    int getTotalForMessageFenye(PageInfo pageInfo);
+    List<Map<String,Object>> getDataForMessageFenye(PageInfo pageInfo);
 }

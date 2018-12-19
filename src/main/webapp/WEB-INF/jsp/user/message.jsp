@@ -17,6 +17,75 @@
     <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/layui/css/layui.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/css/global.css">
+    <script src="${pageContext.request.contextPath}/res/jquery-3.3.1.js"></script>
+    <script src="${pageContext.request.contextPath}/res/layui/layui.all.js"></script>
+    <script>
+        $(function () {
+            getPageInfo();
+        });
+
+        function getPageInfo(pageInfo){
+            if(!pageInfo){
+                pageInfo={};
+                pageInfo.pageIndex=1;
+                pageInfo.pageSize=5;
+                pageInfo.userId=${userinfo.id};
+                pageInfo.nickname='${userinfo.nickname}';
+            }
+
+            $.post({
+                url:"${pageContext.request.contextPath}/user/messageFenye",
+                data:pageInfo,
+                dataType:"json",
+                success:function (data) {
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: 'fenye_page' //注意，这里的 test1 是 ID，不用加 # 号
+                        ,limit:pageInfo.pageSize
+                        ,count:data.total//数据总数，从服务端得到
+                        ,curr:pageInfo.pageIndex
+                        ,first:"首页"
+                        ,last:"尾页"
+                        ,jump: function(obj, first){
+                            //obj包含了当前分页的所有参数，比如：
+//                        console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+//                        console.log(obj.limit); //得到每页显示的条数
+                            if(!first)
+                            {
+                                pageInfo.pageIndex=obj.curr;
+                                pageInfo.pageSize=obj.limit;
+                                pageInfo.userId=${userinfo.id};
+                                pageInfo.nickname='${userinfo.nickname}';
+                                getPageInfo(pageInfo);
+                            }
+                        }
+                    });
+
+                    var getTpl = demo.innerHTML;
+                    var view = document.getElementById('fenye_data');
+
+                    layui.laytpl(getTpl).render(data, function(html){
+                        view.innerHTML = html;
+                    });
+                }
+            });
+        }
+    </script>
+    <script id="demo" type="text/html">
+        {{# if(d.datas==''){ }}
+        <div class="fly-none">您暂时没有最新消息</div>
+        {{# document.getElementById('fenye_page').setAttribute('style','display: none') }}
+        {{# }else{ }}
+        {{# layui.each(d.datas,function(index, item){  }}
+        <li data-id="{{item.id}}">
+            <blockquote class="layui-elem-quote">
+                <a href="/jump/{{item.nickname}}" target="_blank"><cite>{{item.nickname}}</cite></a>在{{item.name}}<a target="_blank" href="/jie/godetail/{{item.topic_id}}"><cite>{{item.title}}</cite></a><span>中回复了你</span>
+            </blockquote>
+            <p><span>{{item.comment_time}}</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
+        </li>
+        {{# });  }}
+        {{# } }}
+    </script>
 </head>
 <body>
 
@@ -66,8 +135,8 @@
             <button class="layui-btn layui-btn-danger" id="LAY_delallmsg">清空全部消息</button>
             <div  id="LAY_minemsg" style="margin-top: 10px;">
                 <!--<div class="fly-none">您暂时没有最新消息</div>-->
-                <ul class="mine-msg">
-                    <c:choose>
+                <ul class="mine-msg" id="fenye_data">
+                    <%--<c:choose>
                         <c:when test="${forMessege.size()==0}">
                            <div class="fly-none">您暂时没有最新消息</div>
                         </c:when>
@@ -81,8 +150,9 @@
                                 </li>
                             </c:forEach>
                         </c:otherwise>
-                    </c:choose>
+                    </c:choose>--%>
                 </ul>
+                <div id="fenye_page" ></div>
             </div>
         </div>
     </div>
@@ -99,7 +169,7 @@
     </p>
 </div>
 
-<script src="${pageContext.request.contextPath}/res/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/res/layui/layui.all.js"></script>
 <script>
     layui.cache.page = 'user';
     layui.cache.user = {

@@ -180,4 +180,27 @@ where (tab_topic.userid=#{userId} and tab_user.id!=#{userId} and tab_comment.isM
 or (tab_comment.comment_content like '%@${userNickname}%' and tab_user.id!=#{userId} and tab_comment.isMessage=0)
 ORDER BY tab_comment.comment_time desc
   </select>
+
+  <select id="getTotalForMessageFenye" parameterType="com.neusoft.response.PageInfo" resultType="int">
+SELECT count(*)
+from tab_comment
+join tab_topic on tab_comment.topic_id=tab_topic.id
+join tab_user on tab_user.id=tab_comment.user_id
+join tab_topic_category on tab_topic_category.id=tab_topic.topic_category_id
+where (tab_topic.userid=#{userId} and tab_user.id!=#{userId} and tab_comment.isMessage=0)
+or (tab_comment.comment_content like '%@${nickname}%' and tab_user.id!=#{userId} and tab_comment.isMessage=0)
+ORDER BY tab_comment.comment_time desc
+  </select>
+
+  <select id="getDataForMessageFenye" parameterType="com.neusoft.response.PageInfo" resultType="map">
+SELECT tab_comment.id,tab_comment.topic_id,tab_user.nickname,tab_topic.title,tab_topic_category.name,tab_comment.comment_time,tab_comment.isMessage
+from tab_comment
+join tab_topic on tab_comment.topic_id=tab_topic.id
+join tab_user on tab_user.id=tab_comment.user_id
+join tab_topic_category on tab_topic_category.id=tab_topic.topic_category_id
+where (tab_topic.userid=#{userId} and tab_user.id!=#{userId} and tab_comment.isMessage=0)
+or (tab_comment.comment_content like '%@${nickname}%' and tab_user.id!=#{userId} and tab_comment.isMessage=0)
+ORDER BY tab_comment.comment_time desc
+limit #{pageStart},#{pageSize}
+  </select>
 </mapper>

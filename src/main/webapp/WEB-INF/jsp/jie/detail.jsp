@@ -137,7 +137,7 @@
                                 <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="/jie/bianjiadd/${list.id}">编辑此贴</a></span>
                             </c:if>
                         </c:if>
-                        <c:if test="${userinfo!=null}">
+                        <c:if test="${userinfo!=null and userinfo.id!=list.userid}">
                             <c:choose>
                                 <c:when test="${collectMap==null}">
                                     <span class="layui-btn layui-btn-xs jie-admin" type="collect" data-type="add">收藏</span>
