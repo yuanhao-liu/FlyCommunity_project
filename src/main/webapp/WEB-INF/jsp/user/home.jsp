@@ -21,10 +21,6 @@
     <script src="${pageContext.request.contextPath}/res/jquery-3.3.1.js"></script>
     <script src="${pageContext.request.contextPath}/res/layui/layui.all.js"></script>
     <script>
-        $(function () {
-            getPageInfo();
-        });
-
         function getPageInfo(pageInfo){
             if(!pageInfo){
                 pageInfo={};
@@ -221,13 +217,14 @@
     }).extend({
         fly: 'index'
     }).use(['fly','face'],function () {
-        var $ = layui.$
-            ,fly = layui.fly;
-        //如果你是采用模版自带的编辑器，你需要开启以下语句来解析。
-        $('.home-dacontent').each(function(){
-            var othis = $(this), html = othis.html();
-            othis.html(fly.content(html));
-        });
+        getPageInfo();
+        // var $ = layui.$
+        //     ,fly = layui.fly;
+        // //如果你是采用模版自带的编辑器，你需要开启以下语句来解析。
+        // $('.home-dacontent').each(function(){
+        //     var othis = $(this), html = othis.html();
+        //     othis.html(fly.content(html));
+        // });
     });
 </script>
 
