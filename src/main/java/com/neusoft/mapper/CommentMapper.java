@@ -35,4 +35,8 @@ public interface CommentMapper {
 
     int getTotalForMessageFenye(PageInfo pageInfo);
     List<Map<String,Object>> getDataForMessageFenye(PageInfo pageInfo);
+
+    int getWeiduMessageCount(Map<String,Object> map);
+
+    List<Map<String,Object>> getMessageForDelete(Map<String,Object> map);
 }

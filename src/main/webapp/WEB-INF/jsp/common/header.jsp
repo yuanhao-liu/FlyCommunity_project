@@ -40,7 +40,6 @@
                 </c:when>
                 <c:otherwise>
                     <!-- 登入后的状态 -->
-
                     <li class="layui-nav-item">
                     <a class="fly-nav-avatar" href="javascript:;">
                     <cite class="layui-hide-xs">${userinfo.nickname}</cite>
@@ -64,11 +63,10 @@
                     </dl>
                     </li>
 
+                    <a class="fly-nav-msg" href="/user/goMessage" id="weiduMessageCount" style="display: none"></a>
+
                 </c:otherwise>
             </c:choose>
-
-
-
         </ul>
     </div>
 </div>

@@ -2,6 +2,7 @@ package com.neusoft.controller;
 
 import com.neusoft.Utils.MD5Utils;
 import com.neusoft.Utils.StringDate;
+import com.neusoft.domain.Comment;
 import com.neusoft.domain.User;
 import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
@@ -295,13 +296,6 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         HttpSession session = request.getSession();
         User userinfo = (User)session.getAttribute("userinfo");
-        /*List<Map<String, Object>> maps = commentMapper.selectForMessage(userinfo.getId());
-        for(Map<String, Object> m:maps){
-            Date create_time = (Date) m.get("comment_time");
-            String stringDate = StringDate.getStringDate(create_time);
-            m.put("comment_time",stringDate);
-        }
-        modelAndView.addObject("list",maps);*/
 
         modelAndView.setViewName("/user/message");
         Map<String,Object> messegeMap=new HashMap<>();
@@ -309,11 +303,12 @@ public class UserController {
         messegeMap.put("userNickname",userinfo.getNickname());
         List<Map<String, Object>> forMessege = commentMapper.getForMessege(messegeMap);
         for(Map<String, Object> m:forMessege){
-            Date create_time = (Date) m.get("comment_time");
-            String stringDate = StringDate.getStringDate(create_time);
-            m.put("comment_time",stringDate);
+            int id = (int)m.get("id");
+            Comment comment = commentMapper.selectByPrimaryKey(id);
+            comment.setIsMessage(2);
+            commentMapper.updateByPrimaryKeySelective(comment);
         }
-        modelAndView.addObject("forMessege",forMessege);
+
         return modelAndView;
     }
     @RequestMapping("messageFenye")

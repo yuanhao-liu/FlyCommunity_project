@@ -90,7 +90,7 @@
 </head>
 <body style="margin-top: 65px;">
 <%@include file="../common/header.jsp"%>
-<div class="fly-home fly-panel" style="background-image: url();">
+<div class="fly-home fly-panel" >
     <c:choose>
         <c:when test="${list[0].pic_path==''}">
             <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">

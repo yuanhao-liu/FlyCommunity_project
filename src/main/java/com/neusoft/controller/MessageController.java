@@ -35,7 +35,7 @@ public class MessageController {
             Map<String,Object> messegeMap=new HashMap<>();
             messegeMap.put("userId",userinfo.getId());
             messegeMap.put("userNickname",userinfo.getNickname());
-            List<Map<String, Object>> forMessege = commentMapper.getForMessege(messegeMap);
+            List<Map<String, Object>> forMessege = commentMapper.getMessageForDelete(messegeMap);
             for(Map<String, Object> m:forMessege){
                 int id1 = (int) m.get("id");
                 Comment comment = commentMapper.selectByPrimaryKey(id1);
@@ -45,5 +45,18 @@ public class MessageController {
             regRespObj.setStatus(0);
         }
         return  regRespObj;
+    }
+    @RequestMapping("nums")
+    @ResponseBody
+    public RegRespObj nums(HttpServletRequest request){
+        RegRespObj regRespObj = new RegRespObj();
+        HttpSession session = request.getSession();
+        User userinfo = (User)session.getAttribute("userinfo");
+        Map<String,Object> messegeMap=new HashMap<>();
+        messegeMap.put("userId",userinfo.getId());
+        messegeMap.put("userNickname",userinfo.getNickname());
+        int weiduMessageCount = commentMapper.getWeiduMessageCount(messegeMap);
+        regRespObj.setStatus(weiduMessageCount);
+        return regRespObj;
     }
 }
