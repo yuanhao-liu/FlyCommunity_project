@@ -65,6 +65,13 @@
                     layui.laytpl(getTpl).render(data, function(html){
                         view.innerHTML = html;
                     });
+                    var $ = layui.$;
+                    var fly = layui.fly;
+                    //如果你是采用模版自带的编辑器，你需要开启以下语句来解析。
+                    $('.home-dacontent').each(function(){
+                        var othis = $(this), html = othis.html();
+                        othis.html(fly.content(html));
+                    });
                 }
             });
         }
@@ -145,6 +152,9 @@
                         <c:otherwise>
                             <c:forEach items="${list}" var="map">
                                 <li>
+                                    <c:if test="${map.is_good==1}">
+                                        <span class="fly-jing">精</span>
+                                    </c:if>
                                     <a href="/jie/godetail/${map.id}" class="jie-title">${map.title}</a>
                                     <i>${map.create_time}</i>
                                     <em class="layui-hide-xs">${map.view_times}阅/${map.comment_num}答</em>
@@ -210,7 +220,15 @@
         ,base: '${pageContext.request.contextPath}/res/mods/'
     }).extend({
         fly: 'index'
-    }).use('fly');
+    }).use(['fly','face'],function () {
+        var $ = layui.$
+            ,fly = layui.fly;
+        //如果你是采用模版自带的编辑器，你需要开启以下语句来解析。
+        $('.home-dacontent').each(function(){
+            var othis = $(this), html = othis.html();
+            othis.html(fly.content(html));
+        });
+    });
 </script>
 
 </body>
