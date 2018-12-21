@@ -1,5 +1,6 @@
 package com.neusoft.controller;
 
+import com.neusoft.Utils.KissUtill;
 import com.neusoft.domain.User;
 import com.neusoft.domain.UserQiandao;
 import com.neusoft.mapper.UserMapper;
@@ -61,16 +62,22 @@ public class SignController {
                     userQiandao.setTotal(userQiandao.getTotal()+1);
                     userQiandao.setCreateTime(date1);
                     userQiandaoMapper.updateByPrimaryKeySelective(userQiandao);
+
+                    int kissNum = KissUtill.getKissNum(userQiandao.getTotal());
+                    User user = userMapper.selectByPrimaryKey(userinfo.getId());
+                    user.setKissNum(user.getKissNum()+kissNum);
+                    userMapper.updateByPrimaryKeySelective(user);
+                    regRespObj.setStatus(0);
                 }else{
                     userQiandao.setTotal(1);
                     userQiandao.setCreateTime(date1);
                     userQiandaoMapper.updateByPrimaryKeySelective(userQiandao);
-                }
 
-                User user = userMapper.selectByPrimaryKey(userinfo.getId());
-                user.setKissNum(user.getKissNum()+5);
-                userMapper.updateByPrimaryKeySelective(user);
-                regRespObj.setStatus(0);
+                    User user = userMapper.selectByPrimaryKey(userinfo.getId());
+                    user.setKissNum(user.getKissNum()+5);
+                    userMapper.updateByPrimaryKeySelective(user);
+                    regRespObj.setStatus(0);
+                }
             }
         }
         return regRespObj;

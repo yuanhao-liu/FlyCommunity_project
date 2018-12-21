@@ -1,5 +1,6 @@
 package com.neusoft.controller;
 
+import com.neusoft.Utils.KissUtill;
 import com.neusoft.Utils.StringDate;
 import com.neusoft.domain.Topic;
 import com.neusoft.domain.User;
@@ -58,8 +59,13 @@ public class IndexController {
         modelAndView.addObject("list2",topics);
 
         if(userinfo!=null){
+            int total=5;
             Map<String, Object> qiandaoMap = userQiandaoMapper.selectForQiandao(userinfo.getId());
+            if(qiandaoMap!=null){
+                 total = KissUtill.getKissNum((int) qiandaoMap.get("total"));
+            }
             modelAndView.addObject("qiandao",qiandaoMap);
+            modelAndView.addObject("feiwen",total);
         }
         return modelAndView;
     }
