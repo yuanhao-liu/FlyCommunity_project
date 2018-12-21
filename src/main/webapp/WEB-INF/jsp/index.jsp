@@ -369,18 +369,7 @@
         //请求第一页的数据（每页2条）
         getPagedTopic(null,jq);
         $('#topic_fenlei').find('a').eq(${typeid}).addClass('layui-this').siblings().removeClass('layui-this');
-        //发ajax请求查询未读消息的数目
-        $.get({
-            url:'${pageContext.request.contextPath}/message/nums',
-            dataType:'json',
-            success:function (data) {
-                if(data.status!=0){
-                    $('#weiduMessageCount').text(data.status).show();
-                }else{
-                    $('#weiduMessageCount').hide();
-                }
-            }
-        })
+
     });
 </script>
 

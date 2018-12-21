@@ -1,5 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="${pageContext.request.contextPath}/res/jquery-3.3.1.js"></script>
+<script>
+    $(function () {
+        //发ajax请求查询未读消息的数目
+        $.get({
+            url:'${pageContext.request.contextPath}/message/nums',
+            dataType:'json',
+            success:function (data) {
+                if(data.status!=0){
+                    $('#weiduMessageCount').text(data.status).show();
+                }else{
+                    $('#weiduMessageCount').hide();
+                }
+            }
+        })
+    })
+</script>
 <div class="fly-header layui-bg-black">
     <div class="layui-container">
         <a class="fly-logo" href="/">
