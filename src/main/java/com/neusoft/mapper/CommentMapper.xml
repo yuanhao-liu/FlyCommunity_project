@@ -145,6 +145,7 @@
     join tab_user on tab_comment.user_id=tab_user.id
     GROUP BY tab_comment.user_id
     ORDER BY count DESC
+    limit 0,12
   </select>
 
   <select id="selectForDetail" parameterType="int" resultType="map">

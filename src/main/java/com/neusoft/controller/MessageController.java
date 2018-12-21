@@ -56,7 +56,8 @@ public class MessageController {
         messegeMap.put("userId",userinfo.getId());
         messegeMap.put("userNickname",userinfo.getNickname());
         int weiduMessageCount = commentMapper.getWeiduMessageCount(messegeMap);
-        regRespObj.setStatus(weiduMessageCount);
+        regRespObj.setStatus(0);
+        regRespObj.setCount(weiduMessageCount);
         return regRespObj;
     }
 }

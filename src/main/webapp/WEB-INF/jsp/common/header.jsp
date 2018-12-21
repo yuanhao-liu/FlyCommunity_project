@@ -8,8 +8,8 @@
             url:'${pageContext.request.contextPath}/message/nums',
             dataType:'json',
             success:function (data) {
-                if(data.status!=0){
-                    $('#weiduMessageCount').text(data.status).show();
+                if(data.count!=0){
+                    $('#weiduMessageCount').text(data.count).show();
                 }else{
                     $('#weiduMessageCount').hide();
                 }

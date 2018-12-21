@@ -26,7 +26,7 @@
 
 <div class="fly-panel fly-column">
     <div class="layui-container">
-        <ul class="layui-clear">
+        <ul class="layui-clear" id="fenleibiaoqian">
             <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
             <li><a href="/jie/gojieindex/1/0">提问</a></li>
             <li><a href="/jie/gojieindex/2/0">分享<span class="layui-badge-dot"></span></a></li>
@@ -242,6 +242,7 @@
         getPagedTopic(null,jq);
 
         $("#topic_fenlei").find("a").eq(${typeid}).addClass('layui-this').siblings().removeClass('layui-this');
+        $("#fenleibiaoqian").find("li").eq(${cid}).addClass('layui-this').siblings().removeClass('layui-this');
     });
 </script>
 
