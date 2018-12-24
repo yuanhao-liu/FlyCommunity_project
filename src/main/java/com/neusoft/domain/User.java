@@ -29,6 +29,10 @@ public class User {
 
     private Date joinTime;
 
+    private String activeCode;
+
+    private Integer activeState;
+
     public Integer getId() {
         return id;
     }
@@ -131,5 +135,21 @@ public class User {
 
     public void setJoinTime(Date joinTime) {
         this.joinTime = joinTime;
+    }
+
+    public String getActiveCode() {
+        return activeCode;
+    }
+
+    public void setActiveCode(String activeCode) {
+        this.activeCode = activeCode == null ? null : activeCode.trim();
+    }
+
+    public Integer getActiveState() {
+        return activeState;
+    }
+
+    public void setActiveState(Integer activeState) {
+        this.activeState = activeState;
     }
 }

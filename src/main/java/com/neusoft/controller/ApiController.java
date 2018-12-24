@@ -1,5 +1,6 @@
 package com.neusoft.controller;
 
+import com.neusoft.Utils.MailUtil;
 import com.neusoft.domain.Comment;
 import com.neusoft.domain.Topic;
 import com.neusoft.domain.User;
@@ -132,6 +133,20 @@ public class ApiController {
             regRespObj.setStatus(0);
             regRespObj.setUrl("/res/uploadImgs/"+uuid+file.getOriginalFilename());
         }
+        return regRespObj;
+    }
+    @RequestMapping("activate")
+    @ResponseBody
+    public RegRespObj activeEmail(HttpServletRequest request) throws Exception {
+        RegRespObj regRespObj = new RegRespObj();
+        HttpSession session = request.getSession();
+        User userinfo = (User) session.getAttribute("userinfo");
+        UUID uuid = UUID.randomUUID();
+        String struuid = uuid.toString().replace("-", "");
+        MailUtil.sendActiveMail(userinfo.getEmail(),struuid);
+        userinfo.setActiveCode(struuid);
+        userMapper.updateByPrimaryKeySelective(userinfo);
+        regRespObj.setStatus(0);
         return regRespObj;
     }
 }

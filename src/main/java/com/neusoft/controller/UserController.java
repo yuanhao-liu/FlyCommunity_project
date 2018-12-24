@@ -1,6 +1,7 @@
 package com.neusoft.controller;
 
 import com.neusoft.Utils.MD5Utils;
+import com.neusoft.Utils.MailUtil;
 import com.neusoft.Utils.StringDate;
 import com.neusoft.domain.Comment;
 import com.neusoft.domain.User;
@@ -51,8 +52,7 @@ public class UserController {
 
     @RequestMapping("doreg")
     @ResponseBody
-    public RegRespObj doReg(User user, HttpServletRequest request)
-    {
+    public RegRespObj doReg(User user, HttpServletRequest request) throws Exception {
         RegRespObj regRespObj = new RegRespObj();
         User user1 = userMapper.selectByEmail(user.getEmail());
         User user2 = userMapper.selectByNickname(user.getNickname());
@@ -65,7 +65,6 @@ public class UserController {
             int i = userMapper.insertSelective(user);
             if(i>0){
                 regRespObj.setStatus(0);
-                System.out.println(request.getServletContext().getContextPath());
                 regRespObj.setAction(request.getServletContext().getContextPath() + "/");
             }else {
                 regRespObj.setStatus(1);
@@ -76,7 +75,23 @@ public class UserController {
             regRespObj.setMsg("邮箱或用户名重复，请重新注册");
         }
         return regRespObj;
-
+    }
+    @RequestMapping("goActive")
+    public String goActive(){
+        return "user/activate";
+    }
+    @RequestMapping("activeEmail/{code}")
+    public String activeEmail(@PathVariable String code,HttpServletRequest request){
+        User user = userMapper.selectByActiveCode(code);
+        if(user!=null){
+            user.setActiveState(1);
+            userMapper.updateByPrimaryKeySelective(user);
+            HttpSession session = request.getSession();
+            session.setAttribute("userinfo",user);
+            return "user/active_success";
+        }else {
+            return "user/activate";
+        }
     }
     @RequestMapping("/checkEmail")
     @ResponseBody
