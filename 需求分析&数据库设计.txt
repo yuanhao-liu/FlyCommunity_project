@@ -19,7 +19,7 @@
 如果表a和表b是1对多关系，则将表a的主键作为表b的外键
 
 表：
-tab_user(id,email,nickname,passwd,city,sign,sex,pic_path,qq,weibo,vip_grade,kiss_num,join_time,active_code,active_state)
+tab_user(id,email,nickname,passwd,city,sign,sex,pic_path,qq,weibo,vip_grade,kiss_num,join_time)
 tab_topic_category(id,name)
 tab_topic(id,title,content,create_time,comment_num,is_end,is_good,is_top,kiss_num,view_times,is_delete,userid,topic_category_id)
 tab_comment(id,comment_time,comment_content,like_num,is_choose,topic_id,user_id,isMessage)
