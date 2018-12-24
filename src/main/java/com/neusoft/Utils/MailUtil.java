@@ -1,5 +1,7 @@
 package com.neusoft.Utils;
 
+import com.neusoft.domain.User;
+
 import java.util.Date;
 import java.util.Properties;
 
@@ -7,6 +9,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 public class MailUtil {
     // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
@@ -22,7 +25,7 @@ public class MailUtil {
     // 收件人邮箱（替换为自己知道的有效邮箱）
     public static String receiveMailAccount = "334835178@qq.com";
 
-    public static void sendActiveMail(String receiveMailAccount,String mailActiveCode) throws Exception {
+    public static void sendActiveMail(String receiveMailAccount, String mailActiveCode, HttpServletRequest request) throws Exception {
         // 1. 创建参数配置, 用于连接邮件服务器的参数配置
         Properties props = new Properties();                    // 参数配置
         props.setProperty("mail.transport.protocol", "smtp");   // 使用的协议（JavaMail规范要求）
@@ -48,7 +51,7 @@ public class MailUtil {
         session.setDebug(true);                                 // 设置为debug模式, 可以查看详细的发送 log
 
         // 3. 创建一封邮件
-        MimeMessage message = createMimeMessage(session, myEmailAccount, receiveMailAccount, mailActiveCode);
+        MimeMessage message = createMimeMessage(session, myEmailAccount, receiveMailAccount, mailActiveCode,request);
 
         // 4. 根据 Session 获取邮件传输对象
         Transport transport = session.getTransport();
@@ -85,7 +88,7 @@ public class MailUtil {
      * @return
      * @throws Exception
      */
-    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail,String mailActiveCode) throws Exception {
+    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail,String mailActiveCode,HttpServletRequest request) throws Exception {
         // 1. 创建一封邮件
         MimeMessage message = new MimeMessage(session);
 
@@ -93,7 +96,8 @@ public class MailUtil {
         message.setFrom(new InternetAddress(sendMail, "东软睿道社区管理员", "UTF-8"));
 
         // 3. To: 收件人（可以增加多个收件人、抄送、密送）
-        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "XX用户", "UTF-8"));
+        User userinfo = (User) request.getSession().getAttribute("userinfo");
+        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, userinfo.getNickname()+"用户", "UTF-8"));
 
         // 4. Subject: 邮件主题
         message.setSubject("东软睿道社区激活邮件", "UTF-8");

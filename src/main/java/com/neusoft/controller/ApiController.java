@@ -143,7 +143,7 @@ public class ApiController {
         User userinfo = (User) session.getAttribute("userinfo");
         UUID uuid = UUID.randomUUID();
         String struuid = uuid.toString().replace("-", "");
-        MailUtil.sendActiveMail(userinfo.getEmail(),struuid);
+        MailUtil.sendActiveMail(userinfo.getEmail(),struuid,request);
         userinfo.setActiveCode(struuid);
         userMapper.updateByPrimaryKeySelective(userinfo);
         regRespObj.setStatus(0);

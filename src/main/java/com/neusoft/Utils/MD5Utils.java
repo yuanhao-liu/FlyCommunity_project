@@ -46,11 +46,4 @@ public class MD5Utils {
         }
         return "";
     }
-
-
-    public static void main(String[] args) {
-        String pwd = MD5Utils.getPwd("234");
-        System.out.println(pwd);
-    }
-
 }
