@@ -101,7 +101,7 @@ public class MailUtil {
 
         // 4. Subject: 邮件主题
         message.setSubject("东软睿道社区激活邮件", "UTF-8");
-        String activeUrl="http://localhost:8088/user/activeEmail/"+mailActiveCode;
+        String activeUrl="http://localhost:80/user/activeEmail/"+mailActiveCode;
         // 5. Content: 邮件正文（可以使用html标签）
         message.setContent("尊敬的用户，您好！我是东软睿道社区管理员，请点击激活链接完成邮箱激活<a href=\""+activeUrl+"\" target=\"_blank\">"+activeUrl+"</a>", "text/html;charset=UTF-8");
 

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 @Controller
@@ -53,7 +55,23 @@ public class WeiboLoginController {
         users.setToken(token);
         User user = users.showUserById(uid);// 微博用户的对象
 
-        
+        com.neusoft.domain.User weiboUser = userMapper.selectByWeibo(user.getIdstr());
+        if(weiboUser==null){
+            com.neusoft.domain.User user2 = new com.neusoft.domain.User();
+            user2.setKissNum(100);
+            user2.setJoinTime(new Date());
+            user2.setWeibo(user.getIdstr());
+            user2.setNickname(user.getName());
+            userMapper.insertSelective(user2);
+            com.neusoft.domain.User user1 = userMapper.selectByWeibo(user.getIdstr());
+            session.setAttribute("userinfo",user1);
+            session.setAttribute("alreadyZan",new ArrayList<>());
+            response.sendRedirect("/");
+        }else {
+            session.setAttribute("userinfo",weiboUser);
+            session.setAttribute("alreadyZan",new ArrayList<>());
+            response.sendRedirect("/");
+        }
     }
 
     private static String QQ_APP_ID = "101533819";

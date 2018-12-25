@@ -222,4 +222,8 @@
   <select id="selectByActiveCode" parameterType="String" resultMap="BaseResultMap">
     select * from tab_user where active_code=#{value}
   </select>
+
+  <select id="selectByWeibo" parameterType="String" resultMap="BaseResultMap">
+    select * from tab_user where weibo=#{value}
+  </select>
 </mapper>

@@ -19,4 +19,5 @@ public interface UserMapper {
     User selectByEmailAndPass(User user);
     User selectByNickname(String nickname);
     User selectByActiveCode(String ActiveCode);
+    User selectByWeibo(String weibo);
 }
